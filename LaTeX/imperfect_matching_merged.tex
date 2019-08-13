@@ -12,6 +12,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{epsfig}
+\usepackage{enumitem}
 \usepackage{float}
 \usepackage[onehalfspacing]{setspace}
 \usepackage{hyperref}
@@ -796,6 +797,81 @@ multiple matches for a subset of the observations.}
 % This paper is not related to one of the few interesting papers using bounds, \cite{HonoreLleras_Muney06}.
 
 \section{Appendix}
+
+Define the estimator 
+\begin{gather} \hat{\theta} =  \underset{\theta \in \Theta}{\arg\min}\ m_n(\theta, \hat{g})'\hat{W}m_n(\theta,\hat{g}) \\
+m_n(\theta,\hat{g}) = \meanN \sum_{\ell=1}^{L_i} m(y_{i\ell}, x_i, z_i; \theta) - (L_i -1) \hat{g}(x_i, z_i, w_i, L_i; \theta) 
+\end{gather}
+
+where $\hat{g}(\cdot)$ is a nonparametric estimator of $g(\cdot)$.   Let also $ m(\theta) \equiv m(y_i,x_i,z_i;\theta)$.
+
+
+
+\textbf{Theorem 1 (Consistency)}.  If the following assumptions are true,
+\begin{enumerate} \item  $\left(x_i,z_i,w_i, \{y_{i\ell}\}_{\ell=1}^{L_i}\right)_{i=1}^n$ is a random sample, and $\{y_{i\ell}\}_{\ell = 1}^{L_i}$ and $(x_i, z_i)$ are i.i.d. samples conditional on $w_i$
+\item $\hat{W} - W = o_p(1)$, $W$ is positive semi-definite, $WE[m(y_i,x_i, z_i; \theta)] = 0 $ has a unique solution on $\Theta$ at $\theta_0$, with $\Theta$ a compact subset of $\mathcal{R}^d$.
+\item (i) $m(y_{i\ell}, x_i, z_i, \theta)$ is continuous at each $\theta \in \Theta$ with probability 1; \\(ii) $E\left[\sup_{\theta\in\Theta} || \sum_{\ell=1}^{L_i} m(y_{i\ell}, x_i, z_i, \theta) || \right] < \infty$; \\
+(iii) $\sup_{\theta}\lVert \hat{g}(x_i,z_i,w_i,L_i;\theta)- g(x_i,z_i,w_i, L_i;\theta) \rVert \toP 0 $. 
+\end{enumerate} 
+then $\hat{\theta} \toP \theta_0$. 
+
+\textbf{Proof.} Assumption 2 is the ID condition for GMM.  To apply Theorem 2.1 in Newey \& McFadden (1994), we verify uniform convergence of the sample objective function.
+
+Define $\hat{Q}_n(\theta) = m_n(\theta,\hat{g})' \hat{W} m_n(\theta,\hat{g})$, and $Q_0(\theta) = E[m(\theta)]'WE[m(\theta)]$. Assumptions 1-3 and (7) imply
+\begin{align*}
+    \sup_{\theta} \left\lVert m_n(\theta,\hat{g}) - E[m(\theta)] \right\rVert &\leq \sup_{\theta} \left\lVert \meanN \sum_{\ell=1}^{L_i} m(y_{i\ell}, x_i, z_i, \theta) - E\left[\sum_{\ell=1}^{L_i}m(y_{i\ell},x_i,z_i; \theta)\right] \right\rVert  \\
+    &+ \sup_{\theta} \left\lVert \meanN (L_i-1) \hat{g}(x_i,z_i,w_i,L_i; \theta) - E\left[(L_i - 1) g(x_i, z_i, w_i, L_i; \theta)\right] \right\rVert \\
+    &\leq o_p(1) + \sup_{\theta} \left\lVert \meanN (L_i -1)\left(\hat{g}(x_i, z_i, w_i, L_i; \theta) - g(x_i, z_i, w_i, L_i; \theta)\right) \right\rVert \\&+ \sup_{\theta} \left\lVert \meanN (L_i-1) g(x_i, z_i, w_i, L_i;\theta) - E[(L_i - 1) g(x_i, z_i, w_i, L_i;\theta)\right\rVert \\
+    &\leq \meanN (L_i -1) \sup_{\theta} \left\lVert \left(\hat{g}(x_i, z_i, w_i, L_i; \theta) - g(x_i, z_i, w_i, L_i; \theta)\right) \right\rVert + o_p(1) \\ &= o_p(1)
+\end{align*}
+The remainder of the proof showing $\sup_{\theta} \lVert\hat{Q}_n(\theta) - Q(\theta)\rVert$ follows from the generic proof for GMM consistency. $\square$
+
+
+Note that the second part of Assumption 1 is necessary to derive the estimator.  Assumption 2 is the standard identification assumption for GMM, and Assumption 3 assures uniform convergence of the  objective function.  If $\hat{g}$ is a sieve estimator, the conditions in Chen, Hong, and Tamer (2005) can be used to replace Assumption 3(iii). 
+
+
+
+
+\textbf{Theorem 2 (Asymptotic Normality)} If, in addition to Assumptions 1-3, the following are true,
+\begin{enumerate}[resume]
+    \item $\theta_0 \in \text{int}(\Theta)$
+    \item $G(\theta) \equiv E\left[\nabla_{\theta} m(\theta)\right] = E\left[\frac{\partial}{\partial \theta'} \left\{ \sum_{\ell=1}^{L_i} m(y_{i\ell}, x_i,z_i; \theta) - (L_i -1)g(\cdot\ ;\theta)\right\}\right]$ is continuous at $\theta_0$ and $\sup_{\theta\in \mathcal{N}} \left\lVert \nabla_{\theta}m_n(\theta,\hat{g}) - G(\theta)\right\rVert \toP 0 $ where $\mathcal{N}$ is a neighborhood of $\theta_0$
+    \item For $G=G(\theta_0)$, $G'WG$ is nonsingular 
+    \item $E\left[m(y_i, x_i, z_i; \theta)m(y_i, x_i, z_i; \theta)\right]$ is finite, positive definite, which is also written as
+$$\hspace{-30pt} E\left[\left\{\sum_{\ell=1}^{L_i} m(y_{i\ell},x_i, z_i; \theta) - (L_i -1) g(x_i,z_i, w_i, L_i; \theta)\right\} \left\{ \sum_{\ell=1}^{L_i} m(y_{i\ell},x_i, z_i; \theta) - (L_i -1) g(x_i,z_i, w_i, L_i; \theta)\right\}'\right] $$
+\item $\hat{g}(\cdot)$ satisfies regularity conditions (specifically, stochastic equicontinuity and mean-square continuity) so that $n^{1/2}m_n(\theta_0, \hat{g}) \Rightarrow \mathcal{N}(0,\Omega)$, with
+
+$$ \Omega = \text{Avar}\left(\frac{1}{\sqrt{n}}\sum_{i=1}^n \left( \sum_{\ell =1}^{L_i} m(y_{i\ell}, x_i, z_i; \theta_0) - (L_i-1) \hat{g}(x_i, z_i, w_i; \theta_0)\right)  \right) $$
+
+\end{enumerate}
+
+then $\sqrt{n}(\hat{\theta}-\theta_0) \Rightarrow \mathcal{N}(0,V)$, where 
+\begin{equation} V = (G'WG)^{-1}G'W\Omega W G(G'WG)^{-1} \label{avar}\end{equation}
+
+\textbf{Proof.} Mean-value expansion and first-order conditions imply:
+\begin{align*} \sqrt{n}(\hat{\theta}-\theta_0) &= (\nabla_{\theta}m_n(\bar{\theta},\hat{g})' \hat{W} \nabla_{\theta} m_n(\hat{\theta},\hat{g}))^{-1}  \nabla_{\theta} m_n(\hat{\theta},\hat{g})' \hat{W} \frac{1}{\sqrt{n}}\sum_{i=1}^n m_n(\theta_0,\hat{g})\\
+&= (G'WG)^{-1}G'W\frac{1}{\sqrt{n}}\sum_{i=1}^n m_n(\theta_0,\hat{g}) + o_p(1)
+\end{align*}
+where \begin{align*}
+     \frac{1}{\sqrt{n}} \sum_{i=1}^n m_n(\theta_0,\hat{g}) &= \underbrace{\frac{1}{\sqrt{n}} \sum_{i=1}^n \left( \sum_{\ell =1}^{L_i} m(y_{i\ell}, x_i, z_i; \theta_0) - (L_i - 1) g(x_i,z_i, w_i, L_i; \theta_0)\right)}_{\Rightarrow \mathcal{N}(0, E[m(\theta_0)m(\theta_0)'])}  \\&+ \frac{1}{\sqrt{n}}\sum_{i=1}^n (L_i-1)\left(g(x_i,z_i,w_i,L_i; \theta_0) - \hat{g}(x_i,z_i,w_i,L_i;\theta_0)\right)  
+ \end{align*}
+To show that $\frac{1}{\sqrt{n}}\sum_{i=1}^n m_n(\theta_0,\hat{g}) \Rightarrow \mathcal{N}(0, \Omega)$, we verify the conditions in Theorem 8.1 in Newey \& McFadden (1994):
+
+\begin{enumerate}
+    \item Linearization is immediate\footnote{with $G(z,g-g_0) = z_i(L_i-1)(g_0-\hat{g})$} because $m_n$ is linear in $g(\cdot)$
+    \item Stochastic equicontinuity requires, for the true distribution of the data $F_0$ , 
+    $$\frac{1}{\sqrt{n}}\left[\sum_{i=1}^n  (L_i-1)(g-\hat{g}) - \int (L_i-1)(g-\hat{g}) d F_0 \right] \toP 0 $$ 
+    \item (Mean-square differentiability) (i) there is $\delta(z)$ and a measure $\hat{F}$ s.t. $E[\delta(z)] = 0, \ E[\lVert \delta(z)\rVert^2] < \infty $, and for all $\lVert g-\hat{g}\rVert$ small enough, $\int (L_i-1)(g-\hat{g})dF_0 = \int \delta(z) d \hat{F}$
+    \item For the empirical distribution $\tilde{F}, \sqrt{n}\left[\int \delta(z)d\hat{F} - \int \delta(z) d\tilde{F}\right] \toP 0$
+\end{enumerate}
+
+Then $\frac{1}{\sqrt{n}}\sum_{i=1}^n m_n(\theta_0,\hat{g}) \Rightarrow \mathcal{N}(0, \Omega)$, where $\Omega = \text{Var}[m(\theta_0) + \delta(z)].\ \square$
+
+ 
+
+Assumptions 4-7 are the usual regularity and dominance conditions to ensure $\sqrt{n}$-normality of the GMM estimator of $\theta_0$ when $g(\cdot)$ is known.  Using instead a non-parametric estimator $\hat{g}$, such as a sieve estimator, requires additional regularity conditions, such as those outlined in the proof and in Chen, Hong and Tamer (2005). 
+
+
 
 \bibliographystyle{econometrica}
 \bibliography{bos_ref}
