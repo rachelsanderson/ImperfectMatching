@@ -1,0 +1,16 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{General problem}{}% 2
+\BOOKMARK [1][-]{section.3}{GMM}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Linear Instrumental Variables Estimation}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Maximum Likelihood Estimation}{section.3}% 5
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Relationship to methods of moments \(optional\)}{subsection.3.2}% 6
+\BOOKMARK [1][-]{section.4}{Possible Generalizations}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Using information about the match quality}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Mean-Variance Trade-Off}{section.4}% 9
+\BOOKMARK [1][-]{section.5}{Allowing for the correct match to not be included}{}% 10
+\BOOKMARK [2][-]{subsection.5.1}{This section will argue that identification is not possible in this case}{section.5}% 11
+\BOOKMARK [2][-]{subsection.5.2}{Linear IV}{section.5}% 12
+\BOOKMARK [2][-]{subsection.5.3}{Tradeoff between interval size and estimation precision when choosing to discard low-probability matches}{section.5}% 13
+\BOOKMARK [2][-]{subsection.5.4}{Maximum Likelihood}{section.5}% 14
+\BOOKMARK [1][-]{section.6}{Application}{}% 15
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 16

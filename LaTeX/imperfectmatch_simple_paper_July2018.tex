@@ -67,7 +67,7 @@
 \newcommand\redsout{\bgroup\markoverwith{\textcolor{red}{\rule[0.5ex]{2pt}{2.0pt}}}\ULon}
 \begin{document}
 
-\author{Rachel L. Anderson\thanks{%
+\author{Rachel S. Anderson\thanks{%
 Mailing Address: Department of Economics, Julis Romo Rabinowitz Building,
 Princeton, NJ 08544. Email: rachelsa@Princeton.edu.} \and Bo E. Honor\'{e}\thanks{%
 Mailing Address: Department of Economics, Julis Romo Rabinowitz Building,
@@ -85,10 +85,10 @@ We show that it is straightforward to use multiple matches provided that the
 true match is included among the potential matches. On the other hand,
 identification is generally not possible if the true match is not included.
 We also investigate the possibility of using information about the quality
-of a match. The main result here is that if teh probability of a correct
+of a match. The main result here is that if the probability of a correct
 match is only approximate then using the match quality will lead to
 inconsistent estimators although we also illustrate that bias-variance
-tradeoffs canjustify using approximate match information informations.
+tradeoffs can justify using approximate match information informations.
 \end{abstract}
 
 %\maketitle
@@ -149,17 +149,17 @@ there are a non-trivial number of multiple matches and measurement error.%
 need a reference}
 
 The standard approach in the existing literature that uses matched data
-consists in dropping any observation without a match or with multiple
+consists of dropping any observation without a match or with multiple
 matches, and to treat unique matches as correct. Inference and estimation
-then proceeds by treating the data as if it came from a single source. In
-this paper we investigate how to best use matched data by a-incorporating
-multiple matches and b-allowing for measurement error in matching.
+then proceed by treating the data as if it came from a single source. In
+this paper we investigate how to best use matched data by a) incorporating
+multiple matches and b) allowing for measurement error in matching.
 
 \section{General problem}
 
 We are interested in estimating a model of the general form:
 \begin{equation}
-E\left[ m\left( y_{i},x_{i},z_{i};\theta _{0}\right) \right] =0
+E_0\left[ m\left( y_{i},x_{i},z_{i};\theta _{0}\right) \right] =0
 \label{Moment}
 \end{equation}%
 where $y_{i}$, $x_{i}$ and $z_{i}$ are vectors or scalars of data for an
@@ -167,14 +167,14 @@ individual $i$. We will typically think of $y_{i}$ as the dependent variable
 (such as earnings, disability or age at death), and ($x_{i}$, $z_{i}$) as a
 set of individual-level covariates or instruments. The function $m\left(
 y_{i},x_{i},z_{i};\theta _{0}\right) $ is known. $\theta _{0}$ is the
-parameter of interest.
+parameter of interest.  The expectation $E_0$ is taken with respect to the joint distribution of the data $f_0(y,x,z)$.
 
 The complication of the estimation problem we consider arises because the
 variables $y_{i}$, $x_{i}$ and $z_{i}$ are not observed in a single data
 set. Instead we have access to two different data sets. The first (the $y$%
 --dataset) contains $y_{i}$ and another vector of characteristics, $w_{i}$.
 The other (the $x$--dataset) contains $x_{i}$, $z_{i}$ and $w_{i}$. The
-vector $w_{i}$ can be used to match observations across data sets but not
+vector $w_{i}$ can be used to match observations across data sets, but not
 always uniquely -- in other words $w_{i}$ is not a unique person identifier.
 Specifically, for each observation, $i$, in the $x$--dataset there will be $%
 L_{i}$ \textquotedblleft matching\textquotedblright\ observations in the $y$%
@@ -206,8 +206,8 @@ y_{i\ell }\right\} _{\ell =1}^{L_{i}},w_{i}\right) $. We start by
 considering the case where the correct match is in the set of matches and
 where every element in that set is equally likely to be the correct match.
 For instance consider the case where we observe an individual
-\textquotedblleft Joe Smith\textquotedblright\ in the $x$--dataset born in
-January 3 1984. In the $y$--dataset we find two male individuals born on the
+\textquotedblleft Joe Smith\textquotedblright\ in the $x$--dataset born on
+January 3, 1984. In the $y$--dataset we find two male individuals born on the
 same date with names \textquotedblleft Joe A. Smith\textquotedblright\ and
 \textquotedblleft Joseph B. Smith\textquotedblright . In the absence of
 additional information we assume that each of the two matches is equally
