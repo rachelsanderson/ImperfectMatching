@@ -1,0 +1,805 @@
+%2multibyte Version: 5.50.0.2953 CodePage: 936
+%\newtheorem{example}[theorem]{Example}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\usepackage{cancel}
+%\usepackage{xcolor}
+%\usepackage{ulem}
+
+
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{float}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{harvard,graphicx}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=936}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=BibTeX}
+%TCIDATA{Created=Monday, May 19, 2014 13:55:38}
+%TCIDATA{LastRevised=Thursday, July 26, 2018 17:24:08}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent \textbf{#1.} }{\  \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\setlength{\topmargin}{-0.4in} \setlength{\textheight}{8.9in}
+\setlength{\evensidemargin}{0.25in}
+\setlength{\oddsidemargin}{0.25in} \setlength{\textwidth}{6.0in}
+\setlength{\parskip}{0ex} \setlength{\footnotesep}{12pt}
+\setcounter{page}{1}
+\renewcommand{\baselinestretch}{1.50}
+\renewcommand{\arraystretch}{1}
+\renewcommand{\cite}{\citeasnoun}
+\newcommand*\dispfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+\newcommand\redsout{\bgroup\markoverwith{\textcolor{red}{\rule[0.5ex]{2pt}{2.0pt}}}\ULon}
+\begin{document}
+
+\author{Rachel L. Anderson\thanks{%
+Mailing Address: Department of Economics, Julis Romo Rabinowitz Building,
+Princeton, NJ 08544. Email: rachelsa@Princeton.edu.} \and Bo E. Honor\'{e}\thanks{%
+Mailing Address: Department of Economics, Julis Romo Rabinowitz Building,
+Princeton, NJ 08544. Email: honore@Princeton.edu.} \and Adriana Lleras-Muney%
+\thanks{%
+Mailing Address: UCLA.} \and At Most one More}
+\title{Estimation and inference using imperfectly matched data}
+\maketitle
+
+\begin{abstract}
+\singlespacing
+This paper studies estimation and inference in standard econometric models
+that use matched data sets with multiple matches of the dependent variable.
+We show that it is straightforward to use multiple matches provided that the
+true match is included among the potential matches. On the other hand,
+identification is generally not possible if the true match is not included.
+We also investigate the possibility of using information about the quality
+of a match. The main result here is that if teh probability of a correct
+match is only approximate then using the match quality will lead to
+inconsistent estimators although we also illustrate that bias-variance
+tradeoffs canjustify using approximate match information informations.
+\end{abstract}
+
+%\maketitle
+
+\section{Introduction}
+
+The recent availability of large administrative data sets has increased the
+use of matched data in recent years in economic applications (Chetty 2012
+not in references). When matching data sets, there will be three possible
+outcomes, the consequences of which we need to account for in the analysis.
+Some observations will not be matched to an outcome and thus will result in
+missing data (recipients for whom no outcomes can be found). Among those
+that are matched, it is not always possible to find a unique match, thus for
+some individuals we will have multiple matches/outcomes. Finally there might
+measurement error in matching: even when find a unique match per individual,
+it might not correspond to the correct match.
+
+Many studies by economic historians and historical demographers have
+employed record linkage techniques. For example, \cite{Abramitzky2012} link
+Norwegian-born from the Norwegian census of 1865 to the 1900 U.S. Census of
+Population and the 1900 Norwegian census, finding only 26\% of those
+observed in the base year. \cite{FerrieRolf2011} link males born 1895-1900
+from the 5\% IPUMS sample of the 1900 U.S. Census of Population to the
+Social Security Death Master File, and successfully link 29\% of those
+sought. \cite{CollinsWanamaker2013} are able to link 21\% of black,
+Southern-born males from the 1\% IPUMS sample of the 1910 U.S. Census of
+Population to the 1930 U.S. Census of Population.
+
+There are several prominent recent examples that match administrative data
+bases to do program evaluation. The Moving to Opportunity experiment,
+offering vouchers to poor families to move to low-poverty areas, was
+evaluated by matching data on participants to many administrative data sets
+including state UI data, state AFDC/TANF/Food stamps data, juvenile and
+criminal justice administrative data, National Student Clearinghouse data on
+college going, school data among others (\cite{Kling2007}, \cite{Kling2005}%
+). \cite{Chettyteachers2013} look at the long-run effects of smaller classes
+and better teachers, by matching the original Tennessee Project STAR
+experimental data to later IRS administrative tax records of the children
+when they are adults. \cite{Chettykindergarten2011} match 2.5M NYC public
+school records to IRS data to look at the long-run impacts of teacher value
+added. \cite{DobbieFryer2011} evaluate the effect of the Harlem Children's
+Zone by matching the HCZ data to the National Student Clearinghouse college
+enrollment data.
+
+There are also many publicly available and commonly used datasets that are
+constructed by matching administrative data sets, for instance the Linked
+Birth and Infant Death data (matches birth certificates and death
+certificates from population databases), the IPUMS Linked Representative
+Samples, 1850-1930 (matches individuals from census to census to create a
+panel data), the National Longitudinal Mortality Survey (matches CPS data to
+death certificates from the National Death Index, or NDI), the National
+Health Interview survey Linked Mortality File (NHIS survey linked to NDI),
+the General Social Survey-National Death Index (GSS-NDI) and National Health
+and Nutrition Examination Survey Linked Mortality Files (I, II, and III).
+Even in these high quality data sets, containing social security numbers,
+there are a non-trivial number of multiple matches and measurement error.%
+\footnote{%
+need a reference}
+
+The standard approach in the existing literature that uses matched data
+consists in dropping any observation without a match or with multiple
+matches, and to treat unique matches as correct. Inference and estimation
+then proceeds by treating the data as if it came from a single source. In
+this paper we investigate how to best use matched data by a-incorporating
+multiple matches and b-allowing for measurement error in matching.
+
+\section{General problem}
+
+We are interested in estimating a model of the general form:
+\begin{equation}
+E\left[ m\left( y_{i},x_{i},z_{i};\theta _{0}\right) \right] =0
+\label{Moment}
+\end{equation}%
+where $y_{i}$, $x_{i}$ and $z_{i}$ are vectors or scalars of data for an
+individual $i$. We will typically think of $y_{i}$ as the dependent variable
+(such as earnings, disability or age at death), and ($x_{i}$, $z_{i}$) as a
+set of individual-level covariates or instruments. The function $m\left(
+y_{i},x_{i},z_{i};\theta _{0}\right) $ is known. $\theta _{0}$ is the
+parameter of interest.
+
+The complication of the estimation problem we consider arises because the
+variables $y_{i}$, $x_{i}$ and $z_{i}$ are not observed in a single data
+set. Instead we have access to two different data sets. The first (the $y$%
+--dataset) contains $y_{i}$ and another vector of characteristics, $w_{i}$.
+The other (the $x$--dataset) contains $x_{i}$, $z_{i}$ and $w_{i}$. The
+vector $w_{i}$ can be used to match observations across data sets but not
+always uniquely -- in other words $w_{i}$ is not a unique person identifier.
+Specifically, for each observation, $i$, in the $x$--dataset there will be $%
+L_{i}$ \textquotedblleft matching\textquotedblright\ observations in the $y$%
+--dataset with identical $w_{i}$. In the applications that we have in mind,
+the $y$--dataset will in principle be the population. This implies that one
+of the $L_{i}$ matched $y$'s will correspond to observation $i$ and the
+remaining $\left( L_{i}-1\right) $ $y$'s are mismatches. This will be our
+leading case, but we will also discuss extension to the case where it is
+possible that none of the matches is correct.
+
+For example \cite{Finkelstein2012} match individuals in the experiment to
+hospital discharge records, credit reports and mortality to look at the
+impact of offering Medicaid on health care use, bankrupcy, and health. In
+this case the $x$--dataset contains then list of individuals that were
+randomly assigned to Medicaid. The $y$--dataset is one of the administrative
+data sets, for instance the hospital discharge records. The data sets are
+matched based on name and date of birth which are known in both data ($w_{i}$%
+). In this example (and in all others cited above), the administrative data
+contain the information for the population. In principle all individuals in
+the $x$--dataset should be found in the $y$--dataset, but they are not,
+because name and date of birth do not uniquely identify individuals, and
+because of record errors (mispelled last names for instance).
+
+\section{GMM}
+
+Consider an individual from the $x$--dataset with $L_{i}$ matches in the $y$%
+--dataset. The data for that observation is $\left( x_{i},z_{i},\left\{
+y_{i\ell }\right\} _{\ell =1}^{L_{i}},w_{i}\right) $. We start by
+considering the case where the correct match is in the set of matches and
+where every element in that set is equally likely to be the correct match.
+For instance consider the case where we observe an individual
+\textquotedblleft Joe Smith\textquotedblright\ in the $x$--dataset born in
+January 3 1984. In the $y$--dataset we find two male individuals born on the
+same date with names \textquotedblleft Joe A. Smith\textquotedblright\ and
+\textquotedblleft Joseph B. Smith\textquotedblright . In the absence of
+additional information we assume that each of the two matches is equally
+likely to be the correct match. For a fixed matching criteria, the number of
+matches $L_{i}$ is a random variable.
+
+Since we are matching observations on the basis of $w_{i}$, we will assume
+that the $y$--dataset and the $x$--dataset are random samples conditional on
+$w_{i}$. We also need to need to clarify that the moment condition (\ref%
+{Moment}) is assumed to hold for the distribution generating the $x$%
+--dataset.
+
+Let
+\begin{equation*}
+g_{1}\left( x,z,L,w;\theta \right) =E\left[ \left. m\left(
+y_{j},x,z,L;\theta \right) \right\vert w_{j}=w\right]
+\end{equation*}%
+then
+
+We then have%
+\begin{equation*}
+E\left[ \left. \sum_{\ell =1}^{L_{i}}m\left( y_{i\ell },x_{i},z_{i};\theta
+\right) \right\vert x_{i},z_{i},L_{i}\right] =E\left[ \left. m\left(
+y_{i},x_{i},z_{i};\theta \right) \right\vert x_{i},z_{i},L_{i}\right]
++\left( L_{i}-1\right) g_{1}\left( x_{i},z_{i},L_{i},w_{i};\theta \right)
+\end{equation*}%
+and%
+\begin{eqnarray*}
+&&E\left[ \left. m\left( y_{i\ell },x_{i},z_{i};\theta \right) \right\vert
+z_{i}=z,x_{i}=x,w_{i}=w\right]  \\
+&=&\frac{1}{L_{i}}E\left[ \left. m\left( y_{i},x_{i},z_{i};\theta \right)
+\right\vert z_{i}=z,x_{i}=x,w_{i}=w\right]  \\
+&&+\frac{L_{i}-1}{L_{i}}E\left[ \left. m\left( y_{j},x,z;\theta \right)
+\right\vert w_{j}=w\right]
+\end{eqnarray*}%
+or%
+\begin{eqnarray*}
+E\left[ \left. m\left( y_{i},x_{i},z_{i};\theta \right) \right\vert
+z_{i}=z,x_{i}=x,w_{i}=w\right]  &=&\sum_{\ell }E\left[ \left. m\left(
+y_{i\ell },x_{i},z_{i};\theta \right) \right\vert z_{i}=z,x_{i}=x,w_{i}=w%
+\right]  \\
+&&-\left( L_{i}-1\right) E\left[ \left. m\left( y_{j},x,z;\theta \right)
+\right\vert w_{j}=w\right]
+\end{eqnarray*}
+
+Let
+\begin{equation*}
+g\left( x,z,w\right) =E\left[ \left. m\left( y_{j},x,z;\theta \right)
+\right\vert w_{j}=w\right]
+\end{equation*}%
+then
+\begin{equation}
+E\left[ m\left( y_{i},x_{i},z_{i};\theta \right) \right] =\sum_{\ell }E\left[
+m\left( y_{i\ell },x_{i},z_{i};\theta \right) \right] -E\left[ \left(
+L_{i}-1\right) g\left( x_{i},z_{i},w_{i}\right) \right]
+\label{main equation}
+\end{equation}%
+where the expectations are with respect to the distributions generating the $%
+x$--data set. The right-hand side of (\ref{main equation}) can be estimated
+given our setup, and the left-hand side identifies the parameter of interest
+via the moment condition (\ref{Moment}).
+
+[remark: this case covers multiple xs in addition to many ys--compare to WP
+by Mahajan or Poirer)
+
+\subsection{Linear Instrumental Variables Estimation\label{Lin IV}}
+
+Consider the text--book linear instrumental variables model
+\begin{equation*}
+y_{i}=x_{i}^{\prime }\beta +\varepsilon _{i}\qquad E\left[ z_{i}\varepsilon
+_{i}\right] =0
+\end{equation*}%
+or%
+\begin{equation}
+E\left[ z_{i}\left( y_{i}-x_{i}^{\prime }\beta \right) \right] =0
+\label{moment condition}
+\end{equation}%
+or%
+\begin{equation*}
+E\left[ z_{i}y_{i}\right] =E\left[ z_{i}x_{i}^{\prime }\right] \beta
+\end{equation*}%
+In this case (\ref{main equation}) becomes%
+\begin{eqnarray*}
+E\left[ z_{i}\left( y_{i}-x_{i}^{\prime }b\right) \right] &=&\sum_{\ell }E%
+\left[ z_{i}\left( y_{i\ell }-x_{i}^{\prime }b\right) \right] -E\left[
+\left( L_{i}-1\right) z_{i}\left( g\left( w_{i}\right) -x_{i}^{\prime
+}b\right) \right] \\
+&=&E\left[ z_{i}\left( \left( \sum_{\ell }y_{i\ell }-\left( L_{i}-1\right)
+g\left( w_{i}\right) \right) -x_{i}^{\prime }b\right) \right]
+\end{eqnarray*}%
+where $g\left( w_{i}\right) =E\left[ \left. y_{i}\right\vert w_{i}\right] $.
+In other words, $\beta $ satisfies the moment condition
+\begin{equation}
+E\left[ z_{i}\left( \left( \sum_{\ell }y_{i\ell }-\left( L_{i}-1\right)
+g\left( w_{i}\right) \right) -x_{i}^{\prime }\beta \right) \right] =0
+\label{momcon1}
+\end{equation}
+
+When the model is just--identified this gives the explicit expression for $%
+\beta $%
+\begin{equation}
+\beta =E\left[ z_{i}x_{i}^{\prime }\right] ^{-1}E\left[ z_{i}\left(
+\sum_{\ell }y_{i\ell }-\left( L_{i}-1\right) g\left( w_{i}\right) \right) %
+\right]  \label{est1}
+\end{equation}%
+When $z_{i}=x_{i}$ and $L_{i}=1$, this is the OLS estimator in a regression
+of $y_{i}$ on $x_{i}$.
+
+When the model is over--identified ($\dim \left( z_{i}\right) =m>k=\dim
+\left( x_{i}\right) $), we have%
+\begin{equation}
+\beta =\left( PE\left[ z_{i}x_{i}^{\prime }\right] \right) ^{-1}PE\left[
+z_{i}\left( \sum_{\ell }y_{i\ell }-\left( L_{i}-1\right) g\left(
+w_{i}\right) \right) \right]  \label{est2}
+\end{equation}%
+for any $k\times m$-matrix such that $E\left[ Pz_{i}x_{i}^{\prime }\right]
+^{-1}$exists. The choice of $P$ is equivalent to the choice of weighting
+matrix in GMM. For example $P=E\left[ x_{i}z_{i}^{\prime }\right] $ $E\left[
+z_{i}z_{i}^{\prime }\right] ^{-1}$ yields the usual 2SLS\ estimator when $%
+L_{i}=1$ for all $i$.
+
+We now turn to the problem of converting (\ref{est1}) and (\ref{est2}) into
+estimators. The first complication in this is that $g\left( \cdot \right) $
+must be estimated. In many applications, the $y$--dataset will be much, much
+larger than the $x$--dataset and it is then reasonable to treat $g\left(
+\cdot \right) $ as if it is known. In other cases, we will explicitly think
+of $g\left( \cdot \right) $ as an object to be estimated. The second
+complication is that (\ref{moment condition}) is often thought of as an
+implication of the conditional moment condition
+\begin{equation}
+E\left[ \left. \left( y_{i}-x_{i}^{\prime }\beta \right) \right\vert z_{i}%
+\right] =0.  \label{cond moment}
+\end{equation}%
+In this case there is room for improving efficiency by weighing different
+observations differently when forming sample analogues to expectations.
+
+To fix ideas, consider first the case where $g\left( \cdot \right) $ is
+known and the starting point is (\ref{moment condition}). In that case the
+optimal GMM\ estimator is
+\begin{equation*}
+\left( \left( \dsum x_{i}z_{i}^{\prime }\right) W\left( \dsum
+x_{i}z_{i}^{\prime }\right) ^{\prime }\right) ^{-1}\left( \dsum
+x_{i}z_{i}^{\prime }\right) W\left( \dsum x_{i}y_{i}\right)
+\end{equation*}%
+where%
+\begin{equation*}
+W=E\left[ \left( \left( \sum_{\ell }y_{i\ell }-\left( L_{i}-1\right) g\left(
+w_{i}\right) \right) -x_{i}^{\prime }b\right) ^{2}z_{i}z_{i}^{\prime }\right]
+^{-1}
+\end{equation*}%
+Let $\nu _{i\ell }=y_{i\ell }-g\left( w_{i}\right) $ then $W$ can be written
+as%
+\begin{equation*}
+W=E\left[ \left( \varepsilon _{i}+\dsum \nu _{i\ell }\right)
+^{2}z_{i}z_{i}^{\prime }\right] ^{-1}
+\end{equation*}%
+where the sum if over the $L_{i}-1$ incorrect matches.
+
+If $E\left[ \left. \nu _{i\ell }^{2}\right\vert z_{i},L_{i}\right] =\sigma
+_{\nu }^{2}$ and $E\left[ \left. \varepsilon _{i}^{2}\right\vert z_{i},L_{i}%
+\right] =\sigma _{\varepsilon }^{2}$ then (assuming independence)
+\begin{equation*}
+W=E\left[ \left( \sigma _{\varepsilon }^{2}+\left( L_{i}-1\right) \sigma
+_{\nu }^{2}\right) E\left[ \left. z_{i}z_{i}^{\prime }\right\vert L_{i}%
+\right] \right] ^{-1}
+\end{equation*}%
+If in addition $E\left[ \left. \varepsilon _{i}\right\vert z_{i},L_{i}\right]
+=0$ then
+\begin{eqnarray*}
+\left( \sum_{\ell }y_{i\ell }-\left( L_{i}-1\right) g\left( w_{i}\right)
+\right) &=&x_{i}^{\prime }b+\varepsilon _{i}+\dsum \nu _{i\ell } \\
+&=&x_{i}^{\prime }b+u_{i}
+\end{eqnarray*}%
+with $E\left[ \left. u_{i}\right\vert z_{i},L_{i}\right] =0$ and $V\left[
+\left. u_{i}\right\vert z_{i},L_{i}\right] =\left( \sigma _{\varepsilon
+}^{2}+\left( L_{i}-1\right) \sigma _{\nu }^{2}\right) $ and the efficient
+estimator (check and reference) is... weighted 2sls... When $z_{i}=x_{i}$
+the optimal estimator of $\beta $ then is the weighted least squares
+estimator
+\begin{equation*}
+\left( \sum_{i}\frac{1}{\left( \sigma _{\varepsilon }^{2}+\left(
+L_{i}-1\right) \sigma _{\nu }^{2}\right) }x_{i}x_{i}^{\prime }\right)
+^{-1}\left( \sum_{i}\frac{1}{\left( \sigma _{\varepsilon }^{2}+\left(
+L_{i}-1\right) \sigma _{\nu }^{2}\right) }x_{i}\left( \sum_{\ell
+=1}^{L_{i}}y_{i\ell }-\left( L_{i}-1\right) g\left( w_{i}\right) \right)
+\right)
+\end{equation*}%
+where $\sigma _{\varepsilon }^{2}$ and $\sigma _{\nu }^{2}$ can be replaced
+by consistent estimators.
+
+We next consider the case where $g\left( \cdot \right) $ is parameterized,
+so we write $g\left( w_{i}\right) =g\left( w_{i};\alpha \right) $ and
+estimate $\alpha $ by some standard estimator that can be written as a
+solution to a moment condition. For simplicity, we first assume that it is
+estimated from the sample of matches $\left\{ \left\{ y_{i\ell }\right\}
+_{\ell =1}^{L_{i}},w_{i}\right\} _{i=1}^{n}$ , but it could also be
+estimated from a larger sample.
+
+There are then two cases to consider. One where we first estimate $\alpha $
+and then subsequently $\beta $, and one where $\alpha $ and $\beta $ are
+potentially estimated jointly. In the former case, we stack the sample
+moment conditions determining $\widehat{\alpha }$ and the moment conditions
+that determine $\widehat{\beta }$:%
+\begin{equation*}
+\left(
+\begin{array}{c}
+\frac{1}{n}\sum_{i}\left( \sum_{\ell }\rho \left( y_{i\ell },w_{i},\widehat{%
+\alpha }\right) \right) \\
+\frac{1}{n}\sum_{i}Pz_{i}\left( \left( \sum_{\ell }y_{i\ell }-\left(
+L_{i}-1\right) g\left( w_{i};\widehat{\alpha }\right) \right) -x_{i}^{\prime
+}\widehat{\beta }\right)%
+\end{array}%
+\right) =\left(
+\begin{array}{c}
+0 \\
+0%
+\end{array}%
+\right)
+\end{equation*}%
+These deliver the asymptotic distribution of $\left( \widehat{\alpha },%
+\widehat{\beta }\right) $. If one allows $\alpha $ and $\beta $ to be
+estimated jointly, then one can simply consider a GMM estimator of $\left(
+\alpha ,\beta \right) $ based on the moment conditions
+\begin{equation*}
+\left(
+\begin{array}{c}
+E\left[ \sum_{\ell }\rho \left( y_{i\ell },w_{i},\alpha \right) \right] \\
+E\left[ z_{i}\left( \left( \sum_{\ell }y_{i\ell }-\left( L_{i}-1\right)
+g\left( w_{i};\alpha \right) \right) -x_{i}^{\prime }\beta \right) \right]%
+\end{array}%
+\right) =\left(
+\begin{array}{c}
+0 \\
+0%
+\end{array}%
+\right)
+\end{equation*}
+
+When $g\left( \cdot \right) $ is estimated nonparametrically for a (much)
+larger sample than the $x$--data set, the standard erros for $\widehat{\beta
+}$ can be calculated as in \cite{ChenHongTamer2005}. See also \cite%
+{ChenHongTarozzi2008}
+
+\subsection{Maximum Likelihood Estimation}
+
+We next turn to estimation of parametric nonlinear model which would
+typically be estimated by maximum likelihood estimation if there were no
+multiple matches.
+
+One way to approach this is to think of the first order condition for
+maximum likelihood as a moment condition and then proceed as above.
+Alternatively, one might think of maximum likelihood estimation in the
+presence of multiple matches.
+
+Using the same notation as earlier, assume that an observation consists of $%
+\left( x_{i},\left\{ y_{i\ell }\right\} _{\ell =1}^{L_{i}},w_{i}\right) $.
+For $\ell =1,...,L$, there is probability $\frac{1}{L_{i}}$ that $y_{i\ell }$
+is drawn from the parametric model, $f\left( \left. y;\theta \right\vert
+x_{i}\right) $; in this case, $y_{ik}$ is drawn from some pre-estimated
+\textquotedblleft reduced form\textquotedblright\ $g\left( \left.
+y\right\vert w_{i}\right) $ for $k\neq \ell .$
+
+This gives the likelihood function
+\begin{align*}
+& \sum_{\ell }^{{}}\left\{ \frac{1}{L_{i}}f\left( \left. y_{i\ell };\theta
+\right\vert x_{i}\right) \dprod\limits_{k\neq \ell }^{{}}\ g\left( \left.
+y_{ik}\right\vert w_{i}\right) \right\} \\
+& =\dprod\limits_{k}^{{}}\ g\left( \left. y_{ik}\right\vert w_{i}\right)
+\left( \sum_{\ell }^{{}}\frac{1}{L_{i}}\frac{f\left( \left. y_{i\ell
+};\theta \right\vert x_{i}\right) }{g\left( \left. y_{i\ell }\right\vert
+w_{i}\right) }\right)
+\end{align*}%
+So except for a constant, the (pseudo) log--likelihood function is
+\begin{equation}
+\sum_{i}\ln \left( \sum_{\ell }^{{}}\frac{1}{L_{i}}\frac{f\left( \left.
+y_{i\ell };\theta \right\vert x_{i}\right) }{g\left( \left. y_{i\ell
+}\right\vert w_{i}\right) }\right)  \label{like-logit}
+\end{equation}%
+The trick is coming up with a good $g$. This will have to be
+application--specific.
+
+The asymptotic properties of the estimator defined by maximizing (\ref%
+{like-logit}) will again depend on how one thinks of $g$. In some cases, the
+\textquotedblleft y\textquotedblright -dataset will be so large relative to
+the \textquotedblleft x\textquotedblright --dataset that it is reasonable to
+consider $g$ known. In that case the maximizer of (\ref{like-logit}) is a
+standard maximum likelihood estimator. In other cases, one will want to
+account for the fact that $g$ has been estimated (parametrically or
+nonparametrically).
+
+\subsubsection{Relationship to methods of moments (optional)}
+
+The first order condition for maximizing (\ref{like-logit}) is%
+\begin{equation}
+\sum_{i}\left( \sum_{\ell }^{{}}\frac{f\left( \left. y_{i\ell };\theta
+\right\vert x_{i}\right) }{g\left( \left. y_{i\ell }\right\vert w_{i}\right)
+}\right) ^{-1}\sum_{\ell }^{{}}\frac{f^{\prime }\left( \left. y_{i\ell
+};\theta \right\vert x_{i}\right) }{g\left( \left. y_{i\ell }\right\vert
+w_{i}\right) }=0.  \label{FOC-lik}
+\end{equation}%
+By comparison, the estimator defined by (\ref{main equation}) with $m()$ the
+derivative of $f$ with respect to $\theta $ would solve%
+\begin{equation}
+\sum_{i}\left( \sum_{\ell }f^{\prime }\left( \left. y_{i\ell };\theta
+\right\vert x_{i}\right) -\left( L_{i}-1\right) E\left[ \left. f^{\prime
+}\left( \left. y;\theta \right\vert x_{i}\right) \right\vert w\right]
+\right) =0
+\end{equation}%
+It seems that this is different from (\ref{FOC-lik}).
+
+\section{Possible Generalizations}
+
+\subsection{Using information about the match quality}
+
+When presented with multiple matches, the researcher will often have
+information about which of the matches is most likely to be correct. In this
+section, we argue that using this information can lead to biases unless it
+is possible to consistently estimate the probability that each match is
+correct. We make this pooint by considering a very simple example.
+
+Suppose we want to estimate a mean, $\mu =E\left[ X\right] $. For each $i$,
+we have two observations, $X_{1i}$ and $X_{2i}$. One is drawn from the
+correct distribution which has mean $\mu $ and variance $\sigma ^{2}$ and
+one is drawn from a known incorrect distribution with \textsl{known} mean $%
+\kappa $ and variance $\omega ^{2}$.
+
+Suppose that the probability that the first is drawn from the correct
+correct distribution is $\pi $. Then%
+\begin{eqnarray*}
+E\left[ X_{1i}\right] &=&\pi \mu +\left( 1-\pi \right) \kappa \\
+E\left[ X_{2i}\right] &=&\pi \kappa +\left( 1-\pi \right) \mu
+\end{eqnarray*}%
+so
+\begin{equation*}
+E\left[ X_{1i}+X_{2i}\right] -\kappa =\pi \left( \mu +\kappa \right) +\left(
+1-\pi \right) \left( \kappa +\mu \right) -\kappa =\mu
+\end{equation*}%
+It therefore follows that
+\begin{equation*}
+\frac{1}{n}\dsum\limits_{i=1}^{n}\left( X_{1i}+X_{2i}\right) -\kappa
+\end{equation*}%
+is a consistent estimator of $\mu $.
+
+More generally consider an estimator of the form
+\begin{equation}
+\widehat{\mu }=\frac{a_{1}}{n}\dsum\limits_{i=1}^{n}X_{1i}+\frac{a_{2}}{n}%
+\dsum\limits_{i=1}^{n}X_{2i}-a_{3}\kappa  \label{muhat}
+\end{equation}%
+Its mean would be
+\begin{eqnarray}
+&&E\left[ \widehat{\mu }\right] =\pi \left( a_{1}\mu +a_{2}\kappa \right)
++\left( 1-\pi \right) \left( a_{1}\kappa +a_{2}\mu \right) -a_{3}\kappa
+\label{e0} \\
+&=&\left( \pi a_{1}+\left( 1-\pi \right) a_{2}\right) \mu +\left( \pi
+a_{2}+\left( 1-\pi \right) a_{1}-a_{3}\right) \kappa  \notag
+\end{eqnarray}%
+For unbiasedness, we then need%
+\begin{equation}
+\left( \pi a_{1}+\left( 1-\pi \right) a_{2}\right) =1  \label{e1}
+\end{equation}%
+or%
+\begin{equation*}
+a_{2}=\frac{1-\pi a_{1}}{1-\pi }=\frac{1}{1-\pi }-\frac{\pi }{1-\pi }a_{1}
+\end{equation*}%
+and%
+\begin{equation}
+\left( \pi a_{2}+\left( 1-\pi \right) a_{1}-a_{3}\right) =0  \label{e2}
+\end{equation}%
+The only way to do this without knowing $\pi $ is to set $a_{1}=a_{2}$. But
+in that case (\ref{e2})\ inplies that $a_{1}=a_{2}=1$.
+
+If we know $\pi $ then (\ref{e1} and (\ref{e2}) can be solved for $a_{2}$
+and $a_{3}$ as a function of $a_{1}$:
+
+\begin{center}
+[here insert numerical example]
+\end{center}
+
+REMARK:\ By Oct 13, have a numerical example.
+
+Also think about this:\ if we postulate a $\pi _{1}$ , calculate the bias
+and variance of various estimators when $\pi _{1}\neq \pi .$
+
+If possible do this for OLS\ as well
+
+\subsection{Mean-Variance Trade-Off}
+
+Simple formulas and numerical illustration
+
+Perhaps also try to do explicit calculations for OLS
+
+\section{Allowing for the correct match to not be included}
+
+\subsection{This section will argue that identification is not possible in
+this case}
+
+We next consider the case where there is some probability that none of the
+observations is drawn from the distribution of interest. In the motivation
+setup, this corresponds to the case where none of the matches is the correct
+one.
+
+Suppose again that we want to estimate a mean, $\mu =E\left[ X\right] $. For
+each $i$, we have two observations, $X_{1i}$ and $X_{2i}$. With probability $%
+\pi _{j}$, $X_{ji}$ is drawn from the correct distribution which has mean $%
+\mu $ and variance $\sigma ^{2}$ and the other is drawn from a known
+incorrect distribution with \textsl{known} mean $\kappa $ and variance $%
+\omega ^{2}$. With probability $1-\pi _{1}-\pi _{2}$, $X_{1i}$ and $X_{2i}$
+are drawn independently from the known incorrect distribution with \textsl{%
+known} mean $\kappa $ and variance $\omega ^{2}$.
+
+Consider an estimator of the (natural) form
+\begin{equation}
+\widehat{\mu }=\frac{a_{1}}{n}\dsum\limits_{i=1}^{n}X_{1i}+\frac{a_{2}}{n}%
+\dsum\limits_{i=1}^{n}X_{2i}-a_{3}\kappa  \label{muhat2}
+\end{equation}%
+Its mean would be
+\begin{eqnarray}
+&&a_{1}\left( \pi _{1}\mu +\left( 1-\pi _{1}\right) \kappa \right)
++a_{2}\left( \pi _{2}\mu +\left( 1-\pi _{2}\right) \kappa \right)
+-a_{3}\kappa  \notag \\
+&=&\left( a_{1}\pi _{1}+a_{2}\pi _{2}\right) \mu +\left( a_{1}\left( 1-\pi
+_{1}\right) +a_{2}\left( 1-\pi _{2}\right) -a_{3}\right) \kappa
+\label{mean2}
+\end{eqnarray}%
+Without knowledge of $\pi _{1}$ and $\pi _{2}$ is is impossible to choose $%
+a_{1}$ and $a_{2}$ such that this is always equal to $\mu $. This would be
+true even if we knew that $\pi _{1}=\pi _{2}$.
+
+On the other hand, if we know $\pi _{1}$ and $\pi _{2}$ then we could
+construct a class of unbiasedness estimators (only) by setting
+\begin{equation*}
+a_{2}=\frac{1-a_{1}\pi _{1}}{\pi _{2}}\qquad \text{and}\qquad
+a_{3}=a_{1}\left( 1-\pi _{1}\right) +a_{2}\left( 1-\pi _{2}\right)
+\end{equation*}
+
+\textit{(I realize that I am going off on a tangent here, but...) }We can
+restate (\ref{mean2}) as
+\begin{equation*}
+E\left[ a_{1}\overline{X}_{1}+a_{2}\overline{X}_{2}\right] =\left( a_{1}\pi
+_{1}+a_{2}\pi _{2}\right) \mu +\left( a_{1}\left( 1-\pi _{1}\right)
++a_{2}\left( 1-\pi _{2}\right) \right) \kappa
+\end{equation*}%
+or if we assume that $\pi _{1}=\pi _{2}$ and $a_{1}=a_{2}=\frac{1}{2}$ (the
+scale of the $a$'s is irrelevant and at this point it seems meaningless to
+distinguish between $\overline{X}_{1}$ and $\overline{X}_{2}$)
+\begin{equation*}
+E\left[ \overline{X}\right] -\left( 1-\pi \right) \kappa =\pi \mu
+\end{equation*}%
+or%
+\begin{equation*}
+\mu =\frac{E\left[ \overline{X}\right] -\left( 1-\pi \right) \kappa }{\pi }
+\end{equation*}%
+The derivative of this with respect to $\pi $ is
+\begin{equation*}
+\frac{\pi \kappa -E\left[ \overline{X}\right] +\left( 1-\pi \right) \kappa }{%
+\pi ^{2}}=\frac{\kappa -E\left[ \overline{X}\right] }{\pi ^{2}}
+\end{equation*}%
+This is monotone, so if we know that $\pi \in \left[ \pi ^{o},1\right] $,
+then we know that $\mu $ must be between $E\left[ \overline{X}\right] $ and $%
+\frac{E\left[ \overline{X}\right] -\left( 1-\pi ^{o}\right) \kappa }{\pi ^{o}%
+}$.
+
+Note that
+
+\begin{itemize}
+\item Allowing different $a_{1}$ and $a_{2}$ should not provide more
+information.
+
+\item There seems to be no scope for identifying $\pi $
+\end{itemize}
+
+We next turn to the case where different observations have different number
+of matches. In some (unrealistic) cases, this may sharpen the bound above...
+
+Suppuse that for $\ell =1,..,L$, each of $X_{i\ell }$ has the distribution
+of interest with probability $\pi _{L}/L$ (these are mutually exclusive).
+Let
+\begin{equation*}
+\overline{X}=\frac{1}{n}\sum_{i=1}^{n}\left( X_{i1}+...+X_{iL}\right)
+\end{equation*}%
+the
+\begin{equation}
+E\left[ \overline{X}\right] =\pi _{L}\mu +\left( L-1\right) \kappa +\left(
+1-\pi _{L}\right) \kappa  \label{meanL}
+\end{equation}%
+or%
+\begin{equation*}
+\mu =\frac{E\left[ \overline{X}\right] -\left( L-1\right) \kappa -\left(
+1-\pi _{L}\right) \kappa }{\pi _{L}}
+\end{equation*}%
+This is monotone in $\pi _{L}$ so if we know that $\pi _{L}\in \left[ \pi
+_{L}^{o},1\right] $ then $\mu $ must be between $E\left[ \overline{X}\right]
+$ and $\frac{E\left[ \overline{X}\right] -\left( L-1\right) \kappa -\left(
+1-\pi _{L}^{o}\right) \kappa }{\pi _{L}^{o}}$.
+
+If we know how $\pi _{L}$ varies with $L$ then identification may be
+possible. But not always. Suppose, for example that $\pi _{L\text{ }}$ is
+constant, then (\ref{meanL}) with $L=2$ and $3$ yields%
+\begin{eqnarray*}
+E_{L=2}\left[ \overline{X}\right] &=&\pi \mu +\kappa +\left( 1-\pi \right)
+\kappa \\
+E_{L=3}\left[ \overline{X}\right] &=&\pi \mu +2\kappa +\left( 1-\pi \right)
+\kappa
+\end{eqnarray*}%
+Thought of as functions of $\left( \pi \mu \right) $ and $\pi $ these are
+two linear equations in two unknowns... But they are collinear...
+
+\subsection{Linear IV}
+
+We now return to the setup in section \ref{Lin IV}. Suppose that there are $%
+L_{i}\ $matched $y$'s for $x_{i}$. There is probability $\pi _{i}$ that one
+of them is teh correct match. The others are drawn from the distribution of $%
+y$ connditional on $w_{i}$
+
+Suppose we know $\pi _{i}$. We can then write%
+\begin{equation}
+\sum_{\ell }y_{i\ell }=\left( L_{i}-\pi _{i}\right) g\left( w_{i}\right)
++\pi _{i}x_{i}^{\prime }\beta +u_{i}
+\end{equation}%
+where $u_{i}$ is potentially correleted with $x_{i}\ $\ but uncorreleated
+with the instrument $z_{i}$. We can rewrite to get%
+\begin{equation}
+\sum_{\ell }y_{i\ell }-L_{i}g\left( w_{i}\right) =-\pi _{i}g\left(
+w_{i}\right) +\pi _{i}x_{i}^{\prime }\beta +u_{i}
+\end{equation}%
+or
+\begin{equation*}
+\gamma _{i}\sum_{\ell }y_{i\ell }-\gamma _{i}L_{i}g\left( w_{i}\right)
++g\left( w_{i}\right) =x_{i}^{\prime }\beta +\varepsilon _{i}
+\end{equation*}%
+where $\gamma _{i}=1/\pi _{i}$. 2sls applied to thsi yields%
+\begin{multline*}
+\left( \left( \dsum x_{i}z_{i}^{\prime }\right) \left( \dsum
+z_{i}z_{i}^{\prime }\right) ^{-1}\left( \dsum x_{i}z_{i}^{\prime }\right)
+^{\prime }\right) ^{-1}\left( \dsum x_{i}z_{i}^{\prime }\right) \left( \dsum
+z_{i}z_{i}^{\prime }\right) ^{-1} \\
+\left( \dsum z_{i}\left( \gamma _{i}\left( \sum_{\ell }y_{i\ell
+}-L_{i}g\left( w_{i}\right) \right) +g\left( w_{i}\right) \right) \right)
+\end{multline*}%
+Let $M=\left( \left( \dsum x_{i}z_{i}^{\prime }\right) \left( \dsum
+z_{i}z_{i}^{\prime }\right) ^{-1}\left( \dsum x_{i}z_{i}^{\prime }\right)
+^{\prime }\right) ^{-1}\left( \dsum x_{i}z_{i}^{\prime }\right) \left( \dsum
+z_{i}z_{i}^{\prime }\right) ^{-1}$ and $m_{i}=Mz_{i}$ (a column vector) the
+the 2SLS estimator is%
+\begin{equation*}
+\dsum_{i}\gamma _{i}m_{i}\left( \sum_{\ell }y_{i\ell }-L_{i}g\left(
+w_{i}\right) \right) +\dsum_{i}m_{i}g\left( w_{i}\right)
+\end{equation*}%
+Suppose we are interested in the first first element of $\widehat{\beta }$.
+It can be written as
+\begin{equation*}
+\widehat{\beta }_{1}=\dsum_{i}\gamma _{i}m_{1i}\left( \sum_{\ell }y_{i\ell
+}-L_{i}g\left( w_{i}\right) \right) +\dsum_{i}m_{1i}g\left( w_{i}\right)
+\end{equation*}%
+where $m_{1i}$ is the first element of. Or%
+\begin{equation*}
+\widehat{\beta }_{1}=\dsum_{i}\gamma _{i}a_{1i}+a_{1}
+\end{equation*}%
+where $a_{1i}=m_{1i}\left( \sum_{\ell }y_{i\ell }-L_{i}g\left( w_{i}\right)
+\right) $ and $a_{1}=\dsum_{i}m_{1i}g\left( w_{i}\right) $
+
+Of course, in practive we dont actually know $\pi $ (or $\gamma =\pi ^{-1}$)
+except that we know that $\underline{\pi }\leq \pi \leq 1$ and hence $1\leq
+\gamma \leq \overline{\gamma }=\underline{\pi }^{-1}$. Then the lower and
+upper bounds for $\widehat{\beta }_{1}$ are obtained by
+\begin{equation*}
+\left[ \dsum_{i}1\left\{ a_{1i}>0\right\} a_{1i}+\dsum_{i}\overline{\gamma }%
+1\left\{ a_{1i}<0\right\} a_{1i}+a_{1},\dsum_{i}1\left\{ a_{1i}<0\right\}
+a_{1i}+\dsum_{i}\overline{\gamma }1\left\{ a_{1i}>0\right\} a_{1i}+a_{1}%
+\right]
+\end{equation*}%
+This is the sample analog of the set of 2SLS\ estimands generated by all
+possible assignments $\pi _{i}$
+
+\subsection{Tradeoff between interval size and estimation precision when
+choosing to discard low-probability matches}
+
+\subsection{Maximum Likelihood}
+
+\section{Application}
+
+In this section we use data from \cite{AizerEliFerrieLLerasMuney2016} to
+illustrate. \footnote{%
+The data, mp\_data.dta is posted as part of the publication:
+https://www.aeaweb.org/articles?id=10.1257\%2Faer.20140529, and it provides
+multiple matches for a subset of the observations.}
+
+\section{Conclusion}
+
+% This paper is not related to one of the few interesting papers using bounds, \cite{HonoreLleras_Muney06}.
+
+\bibliographystyle{econometrica}
+\bibliography{bos_ref}
+
+\end{document}
