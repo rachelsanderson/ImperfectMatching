@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 AUG 2019 11:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 AUG 2019 14:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -434,74 +434,74 @@ LaTeX Warning: Citation 'Finkelstein2012' on page 4 undefined on input line 188
 .
 
 [4]
-Overfull \hbox (28.5299pt too wide) detected at line 236
+Overfull \hbox (28.5299pt too wide) detected at line 256
 \OML/cmm/m/it/12 E [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 E [] \OT1/cmr/m/n/12 +
  [] \OML/cmm/m/it/12 g[] []
  []
 
-
-Overfull \hbox (31.46585pt too wide) in alignment at lines 247--254
+[5]
+Overfull \hbox (31.46585pt too wide) in alignment at lines 267--274
  [][][] []
  []
 
-[5] [6] [7]
-Overfull \hbox (12.77155pt too wide) detected at line 397
+[6] [7] [8]
+Overfull \hbox (12.77155pt too wide) detected at line 417
 [][] []
  []
 
-[8]
+[9]
 
-LaTeX Warning: Citation 'ChenHongTamer2005' on page 9 undefined on input line 4
-51.
-
-
-LaTeX Warning: Citation 'ChenHongTarozzi2008' on page 9 undefined on input line
- 452.
+LaTeX Warning: Citation 'ChenHongTamer2005' on page 10 undefined on input line 
+471.
 
 
-Overfull \hbox (44.75635pt too wide) in paragraph at lines 465--472
+LaTeX Warning: Citation 'ChenHongTarozzi2008' on page 10 undefined on input lin
+e 472.
+
+
+Overfull \hbox (44.75635pt too wide) in paragraph at lines 485--492
 []\OT1/cmr/m/n/12 Using the same no-ta-tion as ear-lier, as-sume that an ob-ser
 -va-tion con-sists of $[]$.
  []
 
-[9] [10] [11] [12] [13]
+[10] [11] [12] [13] [14]
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 676.
- [14] [15]
-Overfull \hbox (40.91321pt too wide) detected at line 781
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 696.
+ [15] [16]
+Overfull \hbox (40.91321pt too wide) detected at line 801
 []
  []
 
 
-LaTeX Warning: Citation 'AizerEliFerrieLLerasMuney2016' on page 16 undefined on
- input line 792.
+LaTeX Warning: Citation 'AizerEliFerrieLLerasMuney2016' on page 17 undefined on
+ input line 812.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 796--796
+Underfull \hbox (badness 10000) in paragraph at lines 816--816
 [][][]\OT1/cmr/m/n/10 The data, mp[]data.dta is posted as part of the pub-li-ca
 -tion:
  []
 
 No file imperfectmatch_simple_paper_July2018.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 805.
-[16] [17]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 805.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 825.
+[17] [18]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 825.
  (./imperfectmatch_simple_paper_July2018.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 805.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 805.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 825.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 825.
 Package rerunfilecheck Info: File `imperfectmatch_simple_paper_July2018.out' ha
 s not changed.
 (rerunfilecheck)             Checksum: FCE0392A0CCE29129BF17646CBFF4653;1210.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 805.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 825.
  ) 
 Here is how much of TeX's memory you used:
- 7629 strings out of 492649
- 111948 string characters out of 6129622
- 210271 words of memory out of 5000000
- 11371 multiletter control sequences out of 15000+600000
+ 7632 strings out of 492649
+ 111979 string characters out of 6129622
+ 210303 words of memory out of 5000000
+ 11372 multiletter control sequences out of 15000+600000
  15903 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,16n,40p,309b,336s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,16n,40p,383b,338s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -518,11 +518,11 @@ e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/local/texlive
 2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/20
 18/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on imperfectmatch_simple_paper_July2018.pdf (17 pages, 226218 by
+Output written on imperfectmatch_simple_paper_July2018.pdf (18 pages, 229029 by
 tes).
 PDF statistics:
- 265 PDF objects out of 1000 (max. 8388607)
- 227 compressed objects within 3 object streams
- 55 named destinations out of 1000 (max. 500000)
+ 270 PDF objects out of 1000 (max. 8388607)
+ 231 compressed objects within 3 object streams
+ 57 named destinations out of 1000 (max. 500000)
  129 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -216,9 +216,29 @@ matches $L_{i}$ is a random variable.
 
 Since we are matching observations on the basis of $w_{i}$, we will assume
 that the $y$--dataset and the $x$--dataset are random samples conditional on
-$w_{i}$. We also need to need to clarify that the moment condition (\ref%
-{Moment}) is assumed to hold for the distribution generating the $x$%
---dataset.
+$w_{i}$ (and $L_i$?) More formally, we make the following assumptions. 
+
+\textbf{Assumption 1.} The observed $(x_i, z_i, w_i)$ is a random sample drawn%
+from the marginal distribution $f_0(x,z | w)$.   The $\{y_{i\ell}\}_{\ell=1}^{L_i}$ is a random sample drawn from $f_0 (y | w)$.
+
+Assumption 1 rules out unobserved sample selection, in the sense that all individuals with the same identifying information have equal probability of appearing in the sample.  This assumption would be violated if, for example, higher income individuals have a greater probability of appearing in the sample, unless $w_i$ includes income.   
+
+\textbf{Assumption 2.}  There is exactly one $y_{i\ell}$ that is drawn from $f_0(y | x_i,z_i)$%
+for all $i.$ That is, we assume that the  $y$--dataset contains the true outcome for each observation in the $x$--dataset. 
+
+This assumption implies we can write $y_i = \sum_{\ell=1}^{L_i} s_{i\ell} y_{i\ell}$, where%
+ $s_{i\ell}$ is an unobserved latent variable that equals 1 if $(y_{i\ell}, x_i, z_i) $ is drawn from $f_0(y,x,z)$, and that equals 0 otherwise.  
+Since $\sum_{\ell=1}^{L_i} s_{i\ell} = 1$ for all $i$, we can rewrite (\ref{Moment}) as,
+\begin{equation} E_0\left[m(y_i, x_i, z_i, \theta_0 )\right] = 0 \iff %
+E\left[m(y_{i\ell},x_i,z_i; \theta_0) | s_{i\ell} =1 \right] = 0  \label{truemodel} \end{equation} 
+which is an expectation with respect to the DGP that produces the $x$--dataset.
+
+\textbf{Assumption 3}. The identifying variables $w_i$ in $(x_i, z_i, w_i)$ are such that the researcher behaves as if
+$$P(s_{i\ell}=1 | w_i, L_i) = \frac{1}{L_i}$$ 
+hence, all matches are equally likely to be drawn from $f_0(y | x,z)$. 
+
+
+
 
 Let
 \begin{equation*}

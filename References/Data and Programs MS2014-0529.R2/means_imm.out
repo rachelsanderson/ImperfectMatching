@@ -1,0 +1,11 @@
+High p_imm															
+	(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)	(11)	(12)	(13)	(14)	(15)
+VARIABLES	year	yob	childageyears	datemiss	numkids	maxage	minage	length_name	widow	divorced	husbandaway	marst_miss	famearn	miss	nmatches
+															
+accepted	1.463	2.030	-0.579***	0.017	0.207	-0.383	-0.898***	0.039	0.103	0.016	0.024	-0.143	-27.938	0.000	0.000
+	[1.252]	[1.227]	[0.171]	[0.013]	[0.177]	[0.410]	[0.185]	[0.087]	[0.078]	[0.020]	[0.042]	[0.086]	[21.345]	[0.000]	[0.000]
+															
+Observations	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729	3,729
+R-squared	0.009	0.012	0.002	0.001	0.001	0.001	0.006	0.000	0.004	0.001	0.000	0.011	0.001		
+Robust standard errors in brackets															
+*** p<0.01, ** p<0.05, * p<0.1															

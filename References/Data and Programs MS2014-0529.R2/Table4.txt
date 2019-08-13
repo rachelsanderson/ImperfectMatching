@@ -1,0 +1,14 @@
+Age at death											
+	(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)	(11)
+VARIABLES	Age at death state and cohort FE	Age at death all controls no county FE	Age at death county FE	Age at death SSA DOB	Survived to 60 DMF only state and cohort	Survived to 60 full no C FE	Survived to 60 full county and cohort FE plus all controls	Survived to 60 SSN DOB full county and cohort FE plus all controls	Survived to 60 unique matches only	Survived to 70 DMF only state and cohort	Survived to 70 full no C FE
+											
+accepted	0.0157**	0.0158**	0.0182**	0.0167**	0.193***	0.121**	0.109**	0.104**	0.0377	0.265***	0.205***
+	[0.006]	[0.007]	[0.007]	[0.007]	[0.048]	[0.049]	[0.052]	[0.052]	[0.144]	[0.052]	[0.053]
+Constant	4.3653***	4.4990***	4.6082***	4.6386***	-0.349	1.820	0.453	0.241	10.63*	-0.796***	2.052
+	[0.016]	[0.156]	[0.333]	[0.329]	[0.249]	[1.242]	[2.433]	[2.436]	[6.422]	[0.259]	[1.325]
+											
+Observations	7,860	7,859	7,859	7,857	16,069	16,068	16,068	16,068	7,799	16,069	16,068
+R-squared	0.029	0.031	0.040	0.037							
+Mean	72.44	72.44	72.44	72.44	0.421	0.421	0.421	0.421	0.880	0.287	0.287
+Robust standard errors in brackets											
+*** p<0.01, ** p<0.05, * p<0.1											

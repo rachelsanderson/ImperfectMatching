@@ -1,0 +1,11 @@
+Below Median															
+	(1)	(2)	(3)	(4)	(5)	(6)	(7)	(8)	(9)	(10)	(11)	(12)	(13)	(14)	(15)
+VARIABLES	year	yob	childageyears	datemiss	numkids	maxage	minage	length_name	widow	divorced	husbandaway	marst_miss	famearn	miss	nmatches
+															
+accepted	0.551	0.854	-0.303	0.008	0.303	0.123	-0.299	0.100	-0.006	-0.004	0.034	-0.024	-11.342	0.000	0.000
+	[0.789]	[0.698]	[0.244]	[0.007]	[0.185]	[0.327]	[0.210]	[0.097]	[0.050]	[0.018]	[0.034]	[0.068]	[8.924]	[0.000]	[0.000]
+															
+Observations	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915	3,915
+R-squared	0.001	0.002	0.001	0.000	0.003	0.000	0.001	0.000	0.000	0.000	0.001	0.000	0.001		
+Robust standard errors in brackets															
+*** p<0.01, ** p<0.05, * p<0.1															
