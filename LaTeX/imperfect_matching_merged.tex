@@ -248,7 +248,7 @@ Dropping $z_i$ for ease of exposition, observe that by the Law of Total Probabil
     E\left[\sumL m\left(y_{i\ell}, x_i; \theta\right) \Bigg\vert w_i, L_i, \right] &=
     \sumL \Big\{ E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell}=1]P(s_{i\ell}=1| w_i, L_i) 
     \\&+ E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell}=0] P(s_{i\ell}=0| w_i, L_i) \Big\}\\
-    &= \meanL E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} = 1] \\&+ \frac{L_i-1}{L_i}E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} = 0] \end{align*}
+    &= \meanL \Bigg\{ E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} = 1] \\&+ \frac{L_i-1}{L_i}E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} = 0] \Bigg\}\end{align*}
 Under random sampling, the expectations are equal for all $i$, 
 \begin{equation*}
    E\left[\sumL m\left(y_{i\ell}, x_i; \theta\right) \Bigg\vert w_i, L_i, \right] = E\left[m(y_{i\ell}, x_{i}; \theta) | w_i, L_i, s_{i\ell} = 1\right] + (L_i - 1)E\left[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} =0 \right] 
@@ -262,9 +262,11 @@ which is equal to $\int m(y, x_i, \theta)f_0(y | w,L)$ and can be approximated n
 E[m(y_{i\ell}, x_i; \theta) | s_{i\ell}=1] = E\left[\sum_{\ell=1}^{L_i} m(y_{i\ell},x_i; \theta)\right] -  E[(L_i -1)g(w_i,L_i,x_i, \theta)] \label{newMoments}
 \end{equation}
 where the left hand side is equal to the moment conditions in ($\ref{Moment}$).  This result suggests that we can estimate $\theta_0$ in (\ref{Moment}) by replacing the moment conditions with an estimate (\ref{newMoments}).  Indeed, if we use
-\begin{equation} \hat{E}\left[m(y_{i\ell}, x_i; \theta) | s_{i\ell} =1\right] = \meanN \sumL m(y_{i\ell}, x_i; \theta) -  \meanN(L_i - 1) \hat{g}(w_i, L_i, x_i; \theta) \label{moments} \end{equation} 
-where $n$ is the number of observations in the $(x_i, z_i, w_i)$ file, and $\hat{g}$ is a parametric or nonparametric estimate of $g(\cdot)$, then the usual GMM estimator is consistent (see Appendix REF HERE).   
+\begin{equation} \hat{E}\left[m(y_{i\ell}, x_i; \theta) | s_{i\ell} =1\right] = \meanN \sumL m(y_{i\ell}, x_i; \theta) -  \meanN(L_i - 1) \hat{g}(w_i, L_i, x_i; \theta) \label{estimates} \end{equation} 
+where $n$ is the number of observations in the $(x_i, z_i, w_i)$ file, and $\hat{g}$ is a parametric or nonparametric estimate of $g(\cdot)$, then the usual GMM estimator that uses ($\ref{estimates}$) as the moment conditions will be consistent and asymptotically normal (see the Appendix for proofs).   
 
+
+I'm Pretty sure we only need to esitmate $\hat{f}(y | w) $ in order to estimate the integral which is great! 
 
 
 [remark: this case covers multiple xs in addition to many ys--compare to WP

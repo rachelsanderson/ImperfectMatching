@@ -1,0 +1,59 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\newcommand{\toP}{\overset{p}{\to}}
+\newcommand{\meanN}{\frac{1}{n}\sum_{i=1}^n}
+\newcommand{\sumL}{\sum_{\ell=1}^{L_i}}
+\newcommand{\meanL}{\frac{1}{L_i}\sumL}
+\newcommand{\sumJ}{\sum_{j=1}^{J_i}}
+
+\title{Random Notes}
+\author{Rachel Anderson}
+\date{\today}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+Consider the case where the number of individuals with more than one match, $N_{L}$ is small relative to the population, of size $N$ (like the AER application where about 4\% of observations have multiple linked outcomes.)  It may then be feasible to solve:
+
+\begin{gather*}\hat{\beta}^{\min/\max} = \min/\max_{\{w_{i\ell}\}} \left(\meaN x_ix_i'\right)^{-1} \left(\meanN x_i \overline{y}_i \right) \\
+\overline{y}_i = \sumL w_{i\ell} y_{i\ell} \\
+\sumL w_{i\ell} = 1, \ w_{i\ell} \geq 0  \end{gather*}
+
+
+Also, we can try alternating $\sumL w_{i\ell} = 1$ OR $\sumL w_{i\ell} = 0$ for observations with $L_i>1$ only, to compare whether they should be included in analysis or not.   
+
+
+Compare this to our method, which uses the moment condtion:
+
+$$m(y_{i\ell}, x_i; \theta) = x_i(y_{i\ell}-x_i'\beta)  $$ 
+
+so that the estimator uses
+
+\begin{gather*} \meanN \sumL   x_i(y_{i\ell}-x_i'\beta)   - \meanN (L_i-1) \hat{g}(w_i, L_i, x_i; \beta) \\
+ g(w_i, L_i, x_i; \beta) = x_i E(y_{i\ell} | w_i, L_i) - x_ix_i'\beta
+\end{gather*} 
+
+Rewriting,
+\begin{gather*} \hat{\beta} = (X'X)^{-1}\meanN \left( \sumL x_i y_{i\ell} - (L_i -1) x_i E[y | w_i]\right) \\
+= (X'X)^{-1} \meanN \left( \sum_{L_i = 1} x_i y_i + \sum_{L_i > 1}  x_i \left(E[y | w_i] + \sumL (y_{i\ell} - E[y | w_i] ) \right)\right) \\
+= (X'X)^{-1} \frac{N - N_L}{N} \frac{1}{N-N_L} \sum_{L_i = 1} x_i y_i + (X'X)^{-1} \frac{N_L}{N}\frac{1}{N_L} \sum_{L_i> 1} x_i \left(E[y|w_i] + \sum_{\ell=1}^{L_i}(y_{i\ell} - E[y  | w_i])\right)\\ 
+%\toP E[x_ix_i']^{-1} (1-\lambda) E[x_iy_i | L_i = 1] +  E[x_ix_i']^{-1} \lambda \left(E[x_i E[y|w]] + E[x_i \sumL y_{i\ell} - E[y | w_i] ]\right)
+\toP \beta
+\end{gather*}
+by the theorem
+
+
+but what if we use the first term only?  Or use a different kernel on the second term in order to change variance?  We could get bias/variance tradeoff
+
+Compare to unbalanced panel techniques/ random effects estimators 
+\end{document}  
