@@ -224,16 +224,13 @@ Assumption 1 rules out the possibility of unobserved sample selection, in the se
 
 
 Assumption 2 guarantees that each observation in the $x$--dataset has a unique, true match  in the $y$--dataset.  Assumption 3 says that, in the absence of
-additional information, each element in $\yiL$  is equally
-likely to be the correct match. 
+additional information, each of the linked $y$'s is equally
+likely to be the true match. 
 
-At this point, it is useful to introduce an unobserved latent variable, $s_{i\ell}$, that equals 1 if $y_{i\ell}$ is $i$'s true match drawn from $f_0(y|x,z)$, and that equals 0 otherwise. Furthermore, $\sumL s_{i\ell}=1$ for all $i$ by Assumption 2.    
-
-If $s_{i\ell}$ were observed,  we could write $y_i = \sum_{\ell=1}^{L_i} s_{i\ell} y_{i\ell}$, and replace (\ref{Moment}) as,
+At this point, it is useful to introduce an unobserved latent variable, $s_{i\ell}$, that equals 1 if $y_{i\ell}$ is $i$'s true match drawn from $f_0(y|x,z)$, and that equals 0 otherwise.  If $s_{i\ell}$ were observed,  we could use $y_i = \sum_{\ell=1}^{L_i} s_{i\ell} y_{i\ell}$ to rewrite the original model in (\ref{Moment}),
 \begin{equation} E_0\left[m(y_i, x_i, z_i, \theta_0 )\right] = 0 \iff %
 E\left[m(y_{i\ell},x_i,z_i; \theta_0) | s_{i\ell} =1 \right] = 0  \label{truemodel} \end{equation} 
-
-where the second expectation is taken with respect to the DGP of the observed datasets (discuss this). 
+where we switch notation to indicate... (Discuss this)
 
 [Remark: If the model is of the form $f_0(y | x,z) = f_0(y | x,z,\theta)$, can we define the identified set for $\theta$ as $\{ \theta:\ f_0(y | x, z, \theta) = f(y | w, L)\}$ ]
  
