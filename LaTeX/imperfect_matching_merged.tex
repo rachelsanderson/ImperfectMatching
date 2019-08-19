@@ -71,6 +71,7 @@
 \newcommand{\sumL}{\sum_{\ell=1}^{L_i}}
 \newcommand{\meanL}{\frac{1}{L_i}\sumL}
 \newcommand{\sumJ}{\sum_{j=1}^{J_i}}
+\newcommand{\yiL}{\{y_{i\ell}\}_{\ell=1}^{L_i}}
 \begin{document}
 
 \author{Rachel S. Anderson\thanks{%
@@ -163,7 +164,7 @@ multiple matches and b) allowing for measurement error in matching.
 
 \section{General problem}
 
-We are interested in estimating a model of the general form:
+We are interested in estimating $\theta_0$ in a model of the general form:
 \begin{equation}
 E_0\left[ m\left( y_{i},x_{i},z_{i};\theta _{0}\right) \right] =0
 \label{Moment}
@@ -172,20 +173,20 @@ where $y_{i}$, $x_{i}$ and $z_{i}$ are vectors or scalars of data for an
 individual $i$. We will typically think of $y_{i}$ as the dependent variable
 (such as earnings, disability or age at death), and ($x_{i}$, $z_{i}$) as a
 set of individual-level covariates or instruments. The function $m\left(
-y_{i},x_{i},z_{i};\theta _{0}\right) $ is known. $\theta _{0}$ is the
-parameter of interest.  The expectation $E_0$ is taken with respect to the joint distribution of the data $f_0(y,x,z)$.
+y_{i},x_{i},z_{i};\theta _{0}\right) $ is known, and the expectation is taken with respect to the joint distribution $f_0(y,x,z)$. (or is it $f_0(x,z)f_0(y|x,z,\theta_0)$?)
 
-The complication of the estimation problem we consider arises because the
+The complication of the estimation problem arises because the
 variables $y_{i}$, $x_{i}$ and $z_{i}$ are not observed in a single data
 set. Instead we have access to two different data sets. The first (the $y$%
 --dataset) contains $y_{i}$ and another vector of characteristics, $w_{i}$.
 The other (the $x$--dataset) contains $x_{i}$, $z_{i}$ and $w_{i}$. The
 vector $w_{i}$ can be used to match observations across data sets, but not
-always uniquely -- in other words $w_{i}$ is not a unique person identifier.
-Specifically, for each observation, $i$, in the $x$--dataset there will be $%
+always uniquely.  Specifically, for each observation, $i$, in the $x$--dataset there will be $%
 L_{i}$ \textquotedblleft matching\textquotedblright\ observations in the $y$%
---dataset with identical $w_{i}$. In the applications that we have in mind,
-the $y$--dataset will in principle be the population. This implies that one
+--dataset with identical $w_{i}$. 
+
+In the applications that we have in mind,
+the $y$--dataset will in principle be the population, and the $x$--dataset will be a randomly selected subset of the population. This implies that one
 of the $L_{i}$ matched $y$'s will correspond to observation $i$ and the
 remaining $\left( L_{i}-1\right) $ $y$'s are mismatches. This will be our
 leading case, but we will also discuss extension to the case where it is
@@ -193,7 +194,7 @@ possible that none of the matches is correct.
 
 For example \cite{Finkelstein2012} match individuals in the experiment to
 hospital discharge records, credit reports and mortality to look at the
-impact of offering Medicaid on health care use, bankrupcy, and health. In
+impact of offering Medicaid on health care use, bankruptcy, and health. In
 this case the $x$--dataset contains then list of individuals that were
 randomly assigned to Medicaid. The $y$--dataset is one of the administrative
 data sets, for instance the hospital discharge records. The data sets are
@@ -205,47 +206,48 @@ because name and date of birth do not uniquely identify individuals, and
 because of record errors (mispelled last names for instance).
 
 \section{GMM}
+\subsection{Setup/Assumptions}
 
 Consider an individual from the $x$--dataset with $L_{i}$ matches in the $y$%
 --dataset. The data for that observation is $\left( x_{i},z_{i},\left\{
-y_{i\ell }\right\} _{\ell =1}^{L_{i}},w_{i}\right) $. We start by
-considering the case where the correct match is in the set of matches and
-where every element in that set is equally likely to be the correct match.
-For instance consider the case where we observe an individual
+y_{i\ell}\right\} _{\ell =1}^{L_{i}},w_{i}\right) $.   We assume that the $(x_i, z_i)$ are drawn from the marginal distribution $f_0(x,z)$ and that all of the $\{y_{i\ell}\}_{\ell=1}^{L_i}$ are drawn from $f_y(y | w)$.  We start with the simplest case, where there is exactly one correct match in the set of matches -- that is, one $y_{i\ell}$ is drawn from $f_0(y | x, z)$ -- and
+ every element in $\yiL$ is equally likely to be the correct match. 
+
+Formally, we make the following assumptions.
+
+\textbf{Assumption 1.} The observed $(x_i, z_i, w_i)$ is a random sample drawn 
+$f_0(x,z)$.   The corresponding $\{y_{i\ell}\}_{\ell=1}^{L_i}$ is a random sample drawn from $f_y (y | w)$.
+
+Assumption 1 rules out unobserved sample selection, in the sense that all individuals with the same identifying information have equal probability of appearing in the sample.  This assumption would be violated if, for example, higher income individuals have a greater probability of appearing in the sample (unless $w_i$ includes income).   
+
+\textbf{Assumption 2.}  For all $i$, $\yiL$ contains exactly one $y_{i\ell}$ that is drawn from $f_0(y | x,z, \theta_0)$.  That is, we assume that the  $y$--dataset contains the true outcome for each observation in the $x$--dataset. 
+
+Aside: Does this mean the identified set for $\theta$ is $\{ \theta:\ f_0(y | x, z, \theta) = f(y | w)\}$?
+ 
+This assumption implies we can write $y_i = \sum_{\ell=1}^{L_i} s_{i\ell} y_{i\ell}$, where $s_{i\ell}$ is an unobserved latent variable that equals 1 if $y_{i\ell}$ is drawn from $f_0(y|x,z; \theta)$, and that equals 0 otherwise.  
+Furthermore, $\sum_{\ell=1}^{L_i} s_{i\ell} = 1$ for all $i$, so we can rewrite (\ref{Moment}) as,
+\begin{equation} E_0\left[m(y_i, x_i, z_i, \theta_0 )\right] = 0 \iff %
+E\left[m(y_{i\ell},x_i,z_i; \theta_0) | s_{i\ell} =1 \right] = 0  \label{truemodel} \end{equation} 
+which is an expectation with respect to the DGP that produces the $x$--dataset (i.e. the marginal distribution $f_0(x,z)$). 
+
+\textbf{Assumption 3}. The identifying variables $w_i$ in $(x_i, z_i, w_i)$ are such that the researcher behaves as if
+$$P(s_{i\ell}=1 | w_i, L_i) = \frac{1}{L_i}$$ 
+hence, all matches are equally likely to be drawn from $f_0(y | x,z; \theta)$. 
+
+
+To fix ideas, consider the case where we observe an individual
 \textquotedblleft Joe Smith\textquotedblright\ in the $x$--dataset born on
 January 3, 1984. In the $y$--dataset we find two male individuals born on the
 same date with names \textquotedblleft Joe A. Smith\textquotedblright\ and
 \textquotedblleft Joseph B. Smith\textquotedblright . In the absence of
 additional information we assume that each of the two matches is equally
 likely to be the correct match. For a fixed matching criteria, the number of
-matches $L_{i}$ is a random variable.
+matches $L_{i}$ is a random variable, \textit{that is independent of $(x_i, z_i)$ and $\yiL$ conditional on $w_i$.  }
 
-Since we are matching observations on the basis of $w_{i}$, we will assume
-that the $y$--dataset and the $x$--dataset are random samples conditional on
-$w_{i}$ (and $L_i$?) More formally, we make the following assumptions. 
-
-\textbf{Assumption 1.} The observed $(x_i, z_i, w_i)$ is a random sample drawn%
-from the marginal distribution $f_0(x,z | w)$.   The $\{y_{i\ell}\}_{\ell=1}^{L_i}$ is a random sample drawn from $f_0 (y | w)$.
-
-Assumption 1 rules out unobserved sample selection, in the sense that all individuals with the same identifying information have equal probability of appearing in the sample.  This assumption would be violated if, for example, higher income individuals have a greater probability of appearing in the sample, unless $w_i$ includes income.   
-
-\textbf{Assumption 2.}  There is exactly one $y_{i\ell}$ that is drawn from $f_0(y | x_i,z_i)$%
-for all $i.$ That is, we assume that the  $y$--dataset contains the true outcome for each observation in the $x$--dataset. 
-
-This assumption implies we can write $y_i = \sum_{\ell=1}^{L_i} s_{i\ell} y_{i\ell}$, where%
- $s_{i\ell}$ is an unobserved latent variable that equals 1 if $(y_{i\ell}, x_i, z_i) $ is drawn from $f_0(y,x,z)$, and that equals 0 otherwise.  
-Since $\sum_{\ell=1}^{L_i} s_{i\ell} = 1$ for all $i$, we can rewrite (\ref{Moment}) as,
-\begin{equation} E_0\left[m(y_i, x_i, z_i, \theta_0 )\right] = 0 \iff %
-E\left[m(y_{i\ell},x_i,z_i; \theta_0) | s_{i\ell} =1 \right] = 0  \label{truemodel} \end{equation} 
-which is an expectation with respect to the DGP that produces the $x$--dataset (the marginal distribution $f_0(x,z)$). 
-
-\textbf{Assumption 3}. The identifying variables $w_i$ in $(x_i, z_i, w_i)$ are such that the researcher behaves as if
-$$P(s_{i\ell}=1 | w_i, L_i) = \frac{1}{L_i}$$ 
-hence, all matches are equally likely to be drawn from $f_0(y | x,z)$. 
-
+\subsection{Deriving the estimator}
 Dropping $z_i$ for ease of exposition, observe that by the Law of Total Probability and Assumption 3, 
 \begin{align*}
-    E\left[\sumL m\left(y_{i\ell}, x_i; \theta\right) \Bigg\vert w_i, L_i, \right] &=
+    E\left[\sumL m\left(y_{i\ell}, x_i; \theta\right) \Bigg\vert w_i, L_i \right] &=
     \sumL \Big\{ E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell}=1]P(s_{i\ell}=1| w_i, L_i) 
     \\&+ E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell}=0] P(s_{i\ell}=0| w_i, L_i) \Big\}\\
     &= \meanL \Bigg\{ E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} = 1] \\&+ \frac{L_i-1}{L_i}E[m(y_{i\ell}, x_i; \theta) | w_i, L_i, s_{i\ell} = 0] \Bigg\}\end{align*}
