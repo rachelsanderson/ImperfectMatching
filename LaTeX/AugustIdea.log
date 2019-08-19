@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  14 AUG 2019 17:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  14 AUG 2019 18:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -287,53 +287,51 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \makeMPintoPDFobject=\count108
 \everyMPtoPDFconversion=\toks28
 )
-./AugustIdea.tex:30: Undefined control sequence.
+./AugustIdea.tex:38: Undefined control sequence.
 <argument> ...\max _{\{w_{i\ell }\}} \left (\meaN 
                                                   x_ix_i'\right )^{-1} \left...
-l.30 ...ll} = 1, \ w_{i\ell} \geq 0  \end{gather*}
+l.38 ...ll} = 1, \ w_{i\ell} \geq 0  \end{gather*}
                                                   
 ? 
-./AugustIdea.tex:30: Undefined control sequence.
+./AugustIdea.tex:38: Undefined control sequence.
 <argument> ...\max _{\{w_{i\ell }\}} \left (\meaN 
                                                   x_ix_i'\right )^{-1} \left...
-l.30 ...ll} = 1, \ w_{i\ell} \geq 0  \end{gather*}
+l.38 ...ll} = 1, \ w_{i\ell} \geq 0  \end{gather*}
                                                   
 ? 
 
-Overfull \hbox (23.85614pt too wide) detected at line 52
+Overfull \hbox (23.85614pt too wide) detected at line 60
 []
  []
 
 
-Overfull \hbox (23.85614pt too wide) in alignment at lines 52--52
+Overfull \hbox (23.85614pt too wide) in alignment at lines 60--60
 [] [] 
  []
 
-
-Underfull \vbox (badness 3623) has occurred while \output is active []
-
- [1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-(./AugustIdea.aux) ) 
+[1{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[2] (./AugustIdea.aux) ) 
 Here is how much of TeX's memory you used:
  3296 strings out of 492649
  43241 string characters out of 6129622
- 118930 words of memory out of 5000000
+ 118934 words of memory out of 5000000
  6979 multiletter control sequences out of 15000+600000
  11131 words of font info for 43 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  42i,10n,29p,390b,198s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9
-.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
-pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-Output written on AugustIdea.pdf (2 pages, 115123 bytes).
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmbx10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmex10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi6.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr9.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.
+pfb>
+Output written on AugustIdea.pdf (2 pages, 115551 bytes).
 PDF statistics:
  55 PDF objects out of 1000 (max. 8388607)
  39 compressed objects within 1 object stream

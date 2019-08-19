@@ -237,7 +237,7 @@ This assumption implies we can write $y_i = \sum_{\ell=1}^{L_i} s_{i\ell} y_{i\e
 Since $\sum_{\ell=1}^{L_i} s_{i\ell} = 1$ for all $i$, we can rewrite (\ref{Moment}) as,
 \begin{equation} E_0\left[m(y_i, x_i, z_i, \theta_0 )\right] = 0 \iff %
 E\left[m(y_{i\ell},x_i,z_i; \theta_0) | s_{i\ell} =1 \right] = 0  \label{truemodel} \end{equation} 
-which is an expectation with respect to the DGP that produces the $x$--dataset.
+which is an expectation with respect to the DGP that produces the $x$--dataset (the marginal distribution $f_0(x,z)$). 
 
 \textbf{Assumption 3}. The identifying variables $w_i$ in $(x_i, z_i, w_i)$ are such that the researcher behaves as if
 $$P(s_{i\ell}=1 | w_i, L_i) = \frac{1}{L_i}$$ 
