@@ -1,0 +1,27 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\newcommand{\toP}{\overset{p}{\to}}
+\newcommand{\meanN}{\frac{1}{n}\sum_{i=1}^n}
+\newcommand{\sumL}{\sum_{\ell=1}^{L_i}}
+\newcommand{\meanL}{\frac{1}{L_i}\sumL}
+\newcommand{\sumJ}{\sum_{j=1}^{J_i}}
+
+\title{Research Ideas}
+\author{Rachel Anderson}
+\date{\today}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+
+\incldudegraphics{../Figures/bias_va}
+\end{document}  
