@@ -65,7 +65,7 @@ for t=1:numP            % t indicates true prob
     hold off
 end
 legend('Location','southoutside', 'bias','variance', 'benchmark a = (1,1,1)')
-saveas(fig1,'bias_var_tradeoff.png');
+saveas(fig1,'../Figures/bias_var_tradeoff.png');
 
 %% DO MSE 
 fig2 = figure
@@ -78,4 +78,4 @@ for t=1:numP            % t indicates true prob
     hold off
 end
 legend('Location','southoutside', 'implied MSE', 'benchmark MSE for a = (1,1,1)')
-saveas(fig2,'bias_var_tradeoff.png');
+saveas(fig2,'../Figures/mse.png');
