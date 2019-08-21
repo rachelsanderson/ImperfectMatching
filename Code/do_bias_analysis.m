@@ -4,7 +4,7 @@ function f = do_bias_analysis(correct_mean, correct_var, incorrect_mean, incorre
 numP = 5;
 numBeliefs = 20;
 trueP = linspace(0, 0.5, numP);
-beliefs = linspace(0,1,numBeliefs);
+beliefs = linspace(0,1, numBeliefs);
 
 % variance of x1,x2 for different values of p
 varX1 = beliefs*correct_var+ (1.-beliefs)*incorrect_var+ beliefs.*(1.-beliefs)*(incorrect_mean - correct_mean)^2;
@@ -16,9 +16,6 @@ calc_bias = @(a, p1) a(1)*(p1*correct_mean + (1-p1)*incorrect_mean) + a(2)*((1-p
 % define variables for plotting
 formatSpec = 'true p = %f';
 fig1 = figure;
-
-% uncomment code for separate mse plot
-% fig2 = figure;
 
 for t=1:numP            % t indicates true prob
     bias = zeros(numP,1);
@@ -34,13 +31,13 @@ for t=1:numP            % t indicates true prob
     varComp = calc_var([1,1,1], varX1(t), varX2(t));
     MSE = bias.^2 + vars;
     
-    % plot bias/variance tradeoff
-    figure(fig1);
+    % make last subplot span two columns
     if t == numP
-        subplot(3,2,[5 6])
+        subplot(3,2,[numP:(numP+1)])
     else
         subplot(3,2,t);
     end
+    
     hold on
     title(sprintf(formatSpec, round(trueP(t),1)))
     h(1) = plot(beliefs, bias, 'r', 'DisplayName','Bias');
@@ -50,37 +47,18 @@ for t=1:numP            % t indicates true prob
     h(5) = plot([0.5, 0.5], [min(bias), max(MSE)], '--k');
     hold off
     
-    % uncomment code for separate MSE plot
-    
-    %     figure(fig2);
-    %     subplot(3,2,t);
-    %     hold on
-    %     title(sprintf(formatSpec, round(trueP(t),1)))
-    %     plot(beliefs, MSE)
-    %     plot([beliefs(1), beliefs(numBeliefs)], [varComp, varComp], '--k')
-    %     hold off
-    
 end
+
+legend(h(1:4), 'Location', 'southoutside','orientation','horizontal')
+
+% uncomment this with Matlab 2019a
+titleSpec = 'Correct Distribution: (%d,%d)  Incorrect Distribution: (%d,%d)';
+% sgtitle(sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var))
+
 paramSpec = '%d_%d_%d_%d';
 %fix this so that it is actually inputs in string form, ie sqrt 2?
 str = sprintf(paramSpec,correct_mean, correct_var, incorrect_mean, incorrect_var);
-
-% figure(fig1);
-legend(h(1:4), 'Location', 'southoutside','orientation','horizontal')
-
-titleSpec = 'Correct Distribution: (%d,%d)  Incorrect Distribution: (%d,%d)';
-sgtitle(sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var))
-
 saveas(fig1,strcat('../Figures/bias_var_tradeoff_',str,'.png'));
-
-% uncomment code for separate mse plot
-
-% figure(fig2);
-% subplot(3,2,6)
-% plot(0,0,  0,0,  0,0,  0,0)
-% axis off
-% legend('Location','southoutside', {'implied MSE', 'benchmark MSE for a = (1,1,1)'}, 'FontSize',14)
-% saveas(fig2,strcat('../Figures/mse_',str,'.png'));
 
 end
 
