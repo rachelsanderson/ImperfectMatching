@@ -56,7 +56,7 @@ titleName = sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorr
 fig1.Name = titleName;
 
 % uncomment this with Matlab 2019a
-% sgtitle(sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var))
+sgtitle(sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var))
 
 paramSpec = '%d_%d_%d_%d';
 str = sprintf(paramSpec,correct_mean, correct_var, incorrect_mean, incorrect_var);
