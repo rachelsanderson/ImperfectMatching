@@ -23,7 +23,7 @@ for t=1:numP            % t indicates true prob
     
     for i=1:numBeliefs        % i indicates believed prob
         a = calcA(beliefs(i),varX1(i), varX2(i));
-        bias(i) = calc_bias(a, trueP(t));
+        bias(i) = abs(calc_bias(a, trueP(t)));
         vars(i) = calc_var(a, varX1(t), varX2(t));
     end
     
@@ -40,7 +40,7 @@ for t=1:numP            % t indicates true prob
     
     hold on
     title(sprintf(formatSpec, round(trueP(t),1)))
-    h(1) = plot(beliefs, bias, 'r', 'DisplayName','Bias');
+    h(1) = plot(beliefs, bias, 'r', 'DisplayName','Bias (Abs Value)');
     h(2) = plot(beliefs, vars, 'b', 'DisplayName','Variance');
     h(3) = plot(beliefs, MSE, 'g', 'DisplayName', 'MSE');
     h(4) = plot([beliefs(1), beliefs(numBeliefs)], [varComp, varComp], '--k', 'DisplayName', 'Equal weights');
@@ -51,12 +51,14 @@ end
 
 legend(h(1:4), 'Location', 'southoutside','orientation','horizontal')
 
-% uncomment this with Matlab 2019a
 titleSpec = 'Correct Distribution: (%d,%d)  Incorrect Distribution: (%d,%d)';
+titleName = sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var);
+fig1.Name = titleName;
+
+% uncomment this with Matlab 2019a
 % sgtitle(sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var))
 
 paramSpec = '%d_%d_%d_%d';
-%fix this so that it is actually inputs in string form, ie sqrt 2?
 str = sprintf(paramSpec,correct_mean, correct_var, incorrect_mean, incorrect_var);
 saveas(fig1,strcat('../Figures/bias_var_tradeoff_',str,'.png'));
 
