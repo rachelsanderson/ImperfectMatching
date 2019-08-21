@@ -1,27 +1,31 @@
-function f = do_bias_analysis(mu, sig, kappa, omeg)
+function f = do_bias_analysis(correct_mean, correct_var, incorrect_mean, incorrect_var)
 
 % range of P to try, numP set  for graphing purposes
-numP = 9;
-trueP = linspace(0, 1, numP);
+numP = 5;
+numBeliefs = 20;
+trueP = linspace(0, 0.5, numP);
+beliefs = linspace(0,1,numBeliefs);
 
 % variance of x1,x2 for different values of p
-varX1 = trueP*sig^2 + (1.-trueP)*omeg^2 + trueP.*(1.-trueP)*(kappa-mu)^2;
-varX2 = (1.-trueP)*sig^2 + trueP*omeg^2 + trueP.*(1.-trueP)*(kappa-mu)^2;
+varX1 = beliefs*correct_var+ (1.-beliefs)*incorrect_var+ beliefs.*(1.-beliefs)*(incorrect_mean - correct_mean)^2;
+varX2 = (1.-beliefs)*correct_var + beliefs*incorrect_var+ beliefs.*(1.-beliefs)*(incorrect_mean - correct_mean)^2;
 
 % define bias function with parameter values
-calc_bias = @(a, p1) a(1)*(p1*mu + (1-p1)*kappa) + a(2)*((1-p1)*mu + p1*kappa) - a(3)*kappa;
+calc_bias = @(a, p1) a(1)*(p1*correct_mean + (1-p1)*incorrect_mean) + a(2)*((1-p1)*correct_mean + p1*incorrect_mean) - a(3)*incorrect_mean;
 
 % define variables for plotting
 formatSpec = 'true p = %f';
 fig1 = figure;
-fig2 = figure;
+
+% uncomment code for separate mse plot
+% fig2 = figure;
 
 for t=1:numP            % t indicates true prob
     bias = zeros(numP,1);
     vars = zeros(numP,1);
     
-    for i=1:numP        % i indicates believed prob
-        a = calcA(trueP(i),varX1(i), varX2(i));
+    for i=1:numBeliefs        % i indicates believed prob
+        a = calcA(beliefs(i),varX1(i), varX2(i));
         bias(i) = calc_bias(a, trueP(t));
         vars(i) = calc_var(a, varX1(t), varX2(t));
     end
@@ -32,32 +36,51 @@ for t=1:numP            % t indicates true prob
     
     % plot bias/variance tradeoff
     figure(fig1);
-    subplot(3,3,t);
+    if t == numP
+        subplot(3,2,[5 6])
+    else
+        subplot(3,2,t);
+    end
     hold on
     title(sprintf(formatSpec, round(trueP(t),1)))
-    plot(trueP, bias)
-    plot(trueP, vars)
-    plot([trueP(1), trueP(numP)], [varComp, varComp], '--k')
-    plot([0.5, 0.5], [min(bias), max(vars)], '--k')
+    h(1) = plot(beliefs, bias, 'r', 'DisplayName','Bias');
+    h(2) = plot(beliefs, vars, 'b', 'DisplayName','Variance');
+    h(3) = plot(beliefs, MSE, 'g', 'DisplayName', 'MSE');
+    h(4) = plot([beliefs(1), beliefs(numBeliefs)], [varComp, varComp], '--k', 'DisplayName', 'Equal weights');
+    h(5) = plot([0.5, 0.5], [min(bias), max(MSE)], '--k');
     hold off
     
-    % plot MSE
-    figure(fig2);
-    subplot(3,3,t);
-    hold on
-    title(sprintf(formatSpec, round(trueP(t),1)))
-    plot(trueP, MSE)
-    plot([trueP(1), trueP(numP)], [varComp, varComp], '--k')
-    hold off
+    % uncomment code for separate MSE plot
+    
+    %     figure(fig2);
+    %     subplot(3,2,t);
+    %     hold on
+    %     title(sprintf(formatSpec, round(trueP(t),1)))
+    %     plot(beliefs, MSE)
+    %     plot([beliefs(1), beliefs(numBeliefs)], [varComp, varComp], '--k')
+    %     hold off
+    
 end
 paramSpec = '%d_%d_%d_%d';
-str = sprintf(paramSpec,mu, sig, kappa, omeg);
+%fix this so that it is actually inputs in string form, ie sqrt 2?
+str = sprintf(paramSpec,correct_mean, correct_var, incorrect_mean, incorrect_var);
 
-figure(fig1);
-legend('Location','southoutside', 'bias','variance', 'benchmark a = (1,1,1)')
+% figure(fig1);
+legend(h(1:4), 'Location', 'southoutside','orientation','horizontal')
+
+titleSpec = 'Correct Distribution: (%d,%d)  Incorrect Distribution: (%d,%d)';
+sgtitle(sprintf(titleSpec, correct_mean, correct_var, incorrect_mean, incorrect_var))
+
 saveas(fig1,strcat('../Figures/bias_var_tradeoff_',str,'.png'));
-figure(fig2);
-legend('Location','southoutside', 'implied MSE', 'benchmark MSE for a = (1,1,1)')
-saveas(fig2,strcat('../Figures/mse_',str,'.png'));
+
+% uncomment code for separate mse plot
+
+% figure(fig2);
+% subplot(3,2,6)
+% plot(0,0,  0,0,  0,0,  0,0)
+% axis off
+% legend('Location','southoutside', {'implied MSE', 'benchmark MSE for a = (1,1,1)'}, 'FontSize',14)
+% saveas(fig2,strcat('../Figures/mse_',str,'.png'));
+
 end
 
