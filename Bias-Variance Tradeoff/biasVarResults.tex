@@ -1,25 +1,71 @@
-\documentclass[11pt]{article}
-\usepackage{setspace}
-\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
-\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
-%\geometry{landscape}                % Activate for for rotated page geometry
-%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
-\usepackage{graphicx}
+
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{epstopdf}
-\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+\usepackage{epsfig}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{harvard,graphicx}
 
-\addtolength{\topmargin}{-.75in}
-% \addtolength{\oddsidemargin}{-.875in}
-% \addtolength{\evensidemargin}{-.875in}
-% \addtolength{\textwidth}{1.75in}
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{Codepage=936}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=BibTeX}
+%TCIDATA{Created=Monday, May 19, 2014 13:55:38}
+%TCIDATA{LastRevised=Thursday, July 26, 2018 17:24:08}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=40 LaTeX article.cst}
 
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent \textbf{#1.} }{\  \rule{0.5em}{0.5em}}
+\input{../LaTeX/tcilatex}
+\setlength{\topmargin}{-0.4in} \setlength{\textheight}{8.9in}
+\setlength{\evensidemargin}{0.25in}
+\setlength{\oddsidemargin}{0.25in} \setlength{\textwidth}{6.0in}
+\setlength{\parskip}{0ex} \setlength{\footnotesep}{12pt}
+\setcounter{page}{1}
+\renewcommand{\baselinestretch}{1.50}
+\renewcommand{\arraystretch}{1}
+\renewcommand{\cite}{\citeasnoun}
+\newcommand*\dispfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+\newcommand\redsout{\bgroup\markoverwith{\textcolor{red}{\rule[0.5ex]{2pt}{2.0pt}}}\ULon}
 \newcommand{\toP}{\overset{p}{\to}}
 \newcommand{\meanN}{\frac{1}{n}\sum_{i=1}^n}
 \newcommand{\sumL}{\sum_{\ell=1}^{L_i}}
 \newcommand{\meanL}{\frac{1}{L_i}\sumL}
 \newcommand{\sumJ}{\sum_{j=1}^{J_i}}
-\doublespacing  
+\newcommand{\yiL}{\{y_{i\ell}\}_{\ell=1}^{L_i}}
+
 \title{Using information about match quality}
 \author{Rachel Anderson}
 \date{\today}                                           % Activate to display a given date or no date
