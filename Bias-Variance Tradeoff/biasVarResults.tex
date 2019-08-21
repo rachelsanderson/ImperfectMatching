@@ -8,6 +8,11 @@
 \usepackage{epstopdf}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
+\addtolength{\topmargin}{-.75in}
+% \addtolength{\oddsidemargin}{-.875in}
+% \addtolength{\evensidemargin}{-.875in}
+% \addtolength{\textwidth}{1.75in}
+
 \newcommand{\toP}{\overset{p}{\to}}
 \newcommand{\meanN}{\frac{1}{n}\sum_{i=1}^n}
 \newcommand{\sumL}{\sum_{\ell=1}^{L_i}}
@@ -16,12 +21,25 @@
 
 \title{Research Ideas}
 \author{Rachel Anderson}
-\date{\today}                                           % Activate to display a given date or no date
+% \date{\today}                                           % Activate to display a given date or no date
 
 \begin{document}
-\maketitle
+% \maketitle
 %\section{}
 %\subsection{}
+\subsection*{Minimum variance estimator is achieved by placing all weight on the $X_{i\ell}$ with lowest variance}
 
-\incldudegraphics{../Figures/bias_va}
+\subsection*{Raw bias is quadratic, with zeros achieved at $\hat{\pi}=\pi_0$ and $\hat{\pi}=0.5$}
+
+With two observations, everything is symmetric so we only need to look at values between 0 and 0.5.
+
+\subsection*{Minimum MSE estimator depends on the choice of correct and incorrect distributions}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{}
+    \caption{Bias-variance tradeoff implied by different beliefs about $\pi$}
+    \label{fig:my_label}
+\end{figure}
+
 \end{document}  
