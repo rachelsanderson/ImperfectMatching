@@ -72,6 +72,14 @@
 \newcommand{\meanL}{\frac{1}{L_i}\sumL}
 \newcommand{\sumJ}{\sum_{j=1}^{J_i}}
 \newcommand{\yiL}{\{y_{i\ell}\}_{\ell=1}^{L_i}}
+
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
 \begin{document}
 
 \author{Rachel S. Anderson\thanks{%
@@ -83,6 +91,8 @@ Princeton, NJ 08544. Email: honore@Princeton.edu.} \and Adriana Lleras-Muney%
 Mailing Address: UCLA.} \and At Most one More}
 \title{Estimation and inference using imperfectly matched data}
 \maketitle
+
+\blfootnote{This project received funding from the NIH (Grant 1 R01 HD077227-01).}
 
 \begin{abstract}
 \singlespacing

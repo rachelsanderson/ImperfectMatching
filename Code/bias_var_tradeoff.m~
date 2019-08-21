@@ -18,8 +18,8 @@ kappa = 1;
 omeg = 2;
 
 % range of p1 values to try -- true and beliefs
-minP = 0;
-maxP = 1;
+minP = -;
+maxP = .9;
 numP = 9;
 
 % range of P to try
